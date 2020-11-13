@@ -59,6 +59,9 @@ void CFileIOTestDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: 여기에 저장 코드를 추가합니다.
+		CFile* file = ar.GetFile();
+		CString sPath = file->GetFilePath();
+		AfxMessageBox(sPath);
 	}
 	else
 	{
