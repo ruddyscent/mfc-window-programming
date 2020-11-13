@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CFileIOTestView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 // CFileIOTestView 생성/소멸
@@ -34,7 +35,13 @@ END_MESSAGE_MAP()
 CFileIOTestView::CFileIOTestView() noexcept
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
-
+	CFileFind finder;
+	BOOL bWorking = finder.FindFile(_T("*.cpp"));
+	while (bWorking)
+	{
+		bWorking = finder.FindNextFile();
+		m_sList.AddTail(finder.GetFileName() + _T("\n"));
+	}
 }
 
 CFileIOTestView::~CFileIOTestView()
@@ -105,3 +112,22 @@ CFileIOTestDoc* CFileIOTestView::GetDocument() const // 디버그되지 않은 �
 
 
 // CFileIOTestView 메시지 처리기
+
+
+void CFileIOTestView::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+					   // TODO: 여기에 메시지 처리기 코드를 추가합니다.
+					   // 그리기 메시지에 대해서는 CView::OnPaint()을(를) 호출하지 마십시오.
+
+	CString output;
+	POSITION pos = m_sList.GetHeadPosition();
+	while (pos != NULL) {
+		CString str = m_sList.GetNext(pos);
+		output.Append(str);
+	}
+
+	CRect rect;
+	GetClientRect(rect);
+	dc.DrawText(output, rect, 0);
+}
