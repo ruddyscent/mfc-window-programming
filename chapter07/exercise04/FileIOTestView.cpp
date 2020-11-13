@@ -27,6 +27,8 @@ BEGIN_MESSAGE_MAP(CFileIOTestView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 // CFileIOTestView 생성/소멸
@@ -34,7 +36,11 @@ END_MESSAGE_MAP()
 CFileIOTestView::CFileIOTestView() noexcept
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
-
+	CFileException e;
+	if (!m_file.Open(_T("test1.txt", CFile::typeUnicode | CFile::readOnly), CFile::modeRead, &e)) {
+		e.ReportError();
+			return;
+	}
 }
 
 CFileIOTestView::~CFileIOTestView()
@@ -105,3 +111,26 @@ CFileIOTestDoc* CFileIOTestView::GetDocument() const // 디버그되지 않은 �
 
 
 // CFileIOTestView 메시지 처리기
+
+
+void CFileIOTestView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CString str;
+	m_file.ReadString(str);
+	m_str.Append(str + _T("\n"));
+	Invalidate();
+
+	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CFileIOTestView::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+					   // TODO: 여기에 메시지 처리기 코드를 추가합니다.
+					   // 그리기 메시지에 대해서는 CView::OnPaint()을(를) 호출하지 마십시오.
+	CRect rect;
+	GetClientRect(rect);
+	dc.DrawText(m_str, rect, 0);
+}
