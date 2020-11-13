@@ -14,6 +14,7 @@ protected: // serialization에서만 만들어집니다.
 // 특성입니다.
 public:
 	CFileIOTestDoc* GetDocument() const;
+	CStringList m_sList;
 
 // 작업입니다.
 public:
@@ -40,6 +41,8 @@ protected:
 // 생성된 메시지 맵 함수
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnPaint();
 };
 
 #ifndef _DEBUG  // FileIOTestView.cpp의 디버그 버전
