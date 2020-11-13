@@ -63,6 +63,9 @@ void CFileIOTestDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: 여기에 로딩 코드를 추가합니다.
+		CFile* file = ar.GetFile();
+		CString sPath = file->GetFilePath();
+		AfxMessageBox(sPath);
 	}
 }
 
