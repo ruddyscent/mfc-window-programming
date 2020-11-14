@@ -62,12 +62,14 @@ void CInputSaveLoadDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
-		ar << m_bItalic << m_bUnderline;
+		ar.Write(&m_bItalic, sizeof(m_bItalic));
+		ar.Write(&m_bUnderline, sizeof(m_bUnderline));
 		m_str.Serialize(ar);
 	}
 	else
 	{
-		ar >> m_bItalic >> m_bUnderline;
+		ar.Read(&m_bItalic, sizeof(m_bItalic));
+		ar.Read(&m_bUnderline, sizeof(m_bUnderline));
 		m_str.Serialize(ar);
 	}
 }
