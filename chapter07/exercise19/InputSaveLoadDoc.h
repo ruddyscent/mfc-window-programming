@@ -16,6 +16,7 @@ protected: // serialization에서만 만들어집니다.
 public:
 	CArray<TCHAR, TCHAR> m_str; // 글자 저장
 	BOOL m_bItalic, m_bUnderline; // 스타일 저장
+	COLORREF m_color;
 
 // 작업입니다.
 public:
@@ -52,4 +53,7 @@ public:
 	afx_msg void OnUpdateStyleItalic(CCmdUI* pCmdUI);
 	afx_msg void OnStyleUnderline();
 	afx_msg void OnUpdateStyleUnderline(CCmdUI* pCmdUI);
+	afx_msg void OnColorBlue();
+	afx_msg void OnColorGreen();
+	afx_msg void OnColorRed();
 };

@@ -64,6 +64,7 @@ void CInputSaveLoadView::OnDraw(CDC* pDC)
 	font.CreateFont(30, 0, 0, 0, 0, pDoc->m_bItalic,
 		pDoc->m_bUnderline, 0, 0, 0, 0, 0, 0, _T("궁서"));
 	pDC->SelectObject(&font);
+	pDC->SetTextColor(pDoc->m_color);
 
 	// 현재까지 입력된 글자를 화면에 출력한다.
 	CRect rect;
