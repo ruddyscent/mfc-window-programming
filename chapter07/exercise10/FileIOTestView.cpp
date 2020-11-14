@@ -27,6 +27,7 @@ BEGIN_MESSAGE_MAP(CFileIOTestView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 // CFileIOTestView 생성/소멸
@@ -105,3 +106,23 @@ CFileIOTestDoc* CFileIOTestView::GetDocument() const // 디버그되지 않은 �
 
 
 // CFileIOTestView 메시지 처리기
+
+
+void CFileIOTestView::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+					   // TODO: 여기에 메시지 처리기 코드를 추가합니다.
+					   // 그리기 메시지에 대해서는 CView::OnPaint()을(를) 호출하지 마십시오.
+	CFileIOTestDoc* doc = GetDocument();
+	CString out;
+	if (doc->m_bIsBitmap) {
+		out.Format(_T("비트맵 파일입니다\n파일 크기: %ull(바이트)"), doc->m_ullSize);
+	} 
+	else {
+		out.Format(_T("파일이 선택되지 않았습니다"));
+	}
+
+	CRect rect;
+	GetClientRect(rect);
+	dc.DrawText(out, rect, 0);
+}

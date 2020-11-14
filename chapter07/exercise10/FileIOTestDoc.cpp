@@ -31,7 +31,8 @@ END_MESSAGE_MAP()
 CFileIOTestDoc::CFileIOTestDoc() noexcept
 {
 	// TODO: 여기에 일회성 생성 코드를 추가합니다.
-
+	m_bIsBitmap = FALSE;
+	m_ullSize = 0;
 }
 
 CFileIOTestDoc::~CFileIOTestDoc()
@@ -63,7 +64,20 @@ void CFileIOTestDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: 여기에 로딩 코드를 추가합니다.
+		CFile* cfile = ar.GetFile();
+		cfile->SeekToBegin();
+		char pbufRead[2];
+		cfile->Read(pbufRead, 2);
+		if (pbufRead[0] == 'B' && pbufRead[1] == 'M') {
+			m_bIsBitmap = TRUE;
+			m_ullSize = cfile->GetLength();
+		}
+		else {
+			m_bIsBitmap = FALSE;
+			m_ullSize = 0;
+		}
 	}
+	UpdateAllViews(NULL);
 }
 
 #ifdef SHARED_HANDLERS
