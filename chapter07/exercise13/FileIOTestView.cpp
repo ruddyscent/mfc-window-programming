@@ -57,10 +57,14 @@ void CFileIOTestView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-
-	pDC->SetMapMode(MM_LOMETRIC);
-	pDC->Rectangle(50, -50, 350, -350);
-	pDC->Ellipse(500, -50, 800, -350);
+	
+	if (pDoc->m_image != NULL) {
+		CRect rect;
+		GetClientRect(rect);
+		pDC->StretchBlt(0, 0, rect.Width(), rect.Height(),
+			CDC::FromHandle(pDoc->m_image.GetDC()),
+			0, 0, pDoc->m_image.GetWidth(), pDoc->m_image.GetHeight(), SRCCOPY);
+	}
 }
 
 
