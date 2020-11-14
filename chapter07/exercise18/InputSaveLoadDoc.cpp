@@ -27,6 +27,8 @@ BEGIN_MESSAGE_MAP(CInputSaveLoadDoc, CDocument)
 	ON_UPDATE_COMMAND_UI(ID_STYLE_ITALIC, &CInputSaveLoadDoc::OnUpdateStyleItalic)
 	ON_COMMAND(ID_STYLE_UNDERLINE, &CInputSaveLoadDoc::OnStyleUnderline)
 	ON_UPDATE_COMMAND_UI(ID_STYLE_UNDERLINE, &CInputSaveLoadDoc::OnUpdateStyleUnderline)
+	ON_COMMAND(ID_STYLE_BOLD, &CInputSaveLoadDoc::OnStyleBold)
+	ON_UPDATE_COMMAND_UI(ID_STYLE_BOLD, &CInputSaveLoadDoc::OnUpdateStyleBold)
 END_MESSAGE_MAP()
 
 
@@ -35,7 +37,7 @@ END_MESSAGE_MAP()
 CInputSaveLoadDoc::CInputSaveLoadDoc() noexcept
 {
 	// TODO: 여기에 일회성 생성 코드를 추가합니다.
-
+	m_bBold = FW_REGULAR;
 }
 
 CInputSaveLoadDoc::~CInputSaveLoadDoc()
@@ -62,12 +64,12 @@ void CInputSaveLoadDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
-		ar << m_bItalic << m_bUnderline;
+		ar << m_bItalic << m_bUnderline << m_bBold;
 		m_str.Serialize(ar);
 	}
 	else
 	{
-		ar >> m_bItalic >> m_bUnderline;
+		ar >> m_bItalic >> m_bUnderline >> m_bBold;
 		m_str.Serialize(ar);
 	}
 }
@@ -169,4 +171,20 @@ void CInputSaveLoadDoc::OnStyleUnderline()
 void CInputSaveLoadDoc::OnUpdateStyleUnderline(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(m_bUnderline == TRUE);
+}
+
+
+void CInputSaveLoadDoc::OnStyleBold()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	m_bBold = (m_bBold == FW_BOLD ? FW_REGULAR : FW_BOLD);
+	SetModifiedFlag();
+	UpdateAllViews(NULL); // 뷰의 화면을 갱신한다.
+}
+
+
+void CInputSaveLoadDoc::OnUpdateStyleBold(CCmdUI* pCmdUI)
+{
+	// TODO: 여기에 명령 업데이트 UI 처리기 코드를 추가합니다.
+	pCmdUI->SetCheck(m_bBold == FW_BOLD);
 }

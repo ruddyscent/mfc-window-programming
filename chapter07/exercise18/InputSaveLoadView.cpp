@@ -61,7 +61,7 @@ void CInputSaveLoadView::OnDraw(CDC* pDC)
 
 	// 화면 출력용 폰트를 선택한다.
 	CFont font;
-	font.CreateFont(30, 0, 0, 0, 0, pDoc->m_bItalic,
+	font.CreateFont(30, 0, 0, 0, pDoc->m_bBold, pDoc->m_bItalic,
 		pDoc->m_bUnderline, 0, 0, 0, 0, 0, 0, _T("궁서"));
 	pDC->SelectObject(&font);
 
