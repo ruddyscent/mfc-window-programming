@@ -27,6 +27,8 @@ BEGIN_MESSAGE_MAP(CFileIOTestView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // CFileIOTestView 생성/소멸
@@ -61,6 +63,10 @@ void CFileIOTestView::OnDraw(CDC* pDC)
 	pDC->SetMapMode(MM_LOMETRIC);
 	pDC->Rectangle(50, -50, 350, -350);
 	pDC->Ellipse(500, -50, 800, -350);
+
+	CString string;
+	string.Format(_T("(%03d, %03d)"), m_point.x, m_point.y);
+	pDC->TextOut(0, 0, string);
 }
 
 
@@ -105,3 +111,38 @@ CFileIOTestDoc* CFileIOTestView::GetDocument() const // 디버그되지 않은 �
 
 
 // CFileIOTestView 메시지 처리기
+
+
+void CFileIOTestView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	try {
+		CFile file(_T("mytest.dat"), CFile::modeWrite | CFile::modeCreate);
+		CArchive ar(&file, CArchive::store);
+		ar << point;
+	}
+	catch (CFileException* e) {
+		e->ReportError();
+		e->Delete();
+	}
+
+	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CFileIOTestView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	try {
+		CFile file(_T("mytest.dat"), CFile::modeRead);
+		CArchive ar(&file, CArchive::load);
+		ar >> m_point;
+		Invalidate();
+	}
+	catch (CFileException* e) {
+		e->ReportError();
+		e->Delete();
+	}
+
+	CView::OnRButtonDown(nFlags, point);
+}
