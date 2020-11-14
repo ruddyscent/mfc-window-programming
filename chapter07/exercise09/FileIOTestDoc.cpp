@@ -63,6 +63,12 @@ void CFileIOTestDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: 여기에 로딩 코드를 추가합니다.
+		CFile* file = ar.GetFile();
+		ULONGLONG dwLength = file->GetLength();
+		ULONGLONG ullEnd = file->SeekToEnd();
+		CString out;
+		out.Format(_T("GetLength: %llu, GetPosition: %llu"), dwLength, ullEnd);
+		AfxMessageBox(out);
 	}
 }
 
