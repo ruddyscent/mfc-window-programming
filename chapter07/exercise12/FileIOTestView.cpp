@@ -59,8 +59,17 @@ void CFileIOTestView::OnDraw(CDC* pDC)
 		return;
 
 	pDC->SetMapMode(MM_LOMETRIC);
-	pDC->Rectangle(50, -50, 350, -350);
-	pDC->Ellipse(500, -50, 800, -350);
+	pDC->Rectangle(0, 0, 950, -1700);
+	pDC->DrawText(_T("Free Note"), CRect(150, -130, 900, -180), 0);
+	pDC->MoveTo(150, -180);
+	pDC->LineTo(900, -180);
+	pDC->Rectangle(150, -200, 900, -1650);
+	pDC->Ellipse(50, -200, 100, -250);
+	pDC->Ellipse(50, -400, 100, -450);
+	pDC->Ellipse(50, -600, 100, -650);
+	pDC->Ellipse(50, 600 - 1700, 100, 650 - 1700);
+	pDC->Ellipse(50, 400 - 1700, 100, 450 - 1700);
+	pDC->Ellipse(50, 200 - 1700, 100, 250 - 1700);
 }
 
 
