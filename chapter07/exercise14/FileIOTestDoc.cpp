@@ -50,8 +50,6 @@ BOOL CFileIOTestDoc::OnNewDocument()
 }
 
 
-
-
 // CFileIOTestDoc serialization
 
 void CFileIOTestDoc::Serialize(CArchive& ar)
@@ -59,6 +57,11 @@ void CFileIOTestDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: 여기에 저장 코드를 추가합니다.
+		POSITION pos = m_pointList.GetHeadPosition();
+		while (pos != NULL) {
+			CPoint point = m_pointList.GetNext(pos);
+			ar << point;
+		}
 	}
 	else
 	{

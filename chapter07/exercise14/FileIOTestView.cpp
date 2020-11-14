@@ -27,6 +27,10 @@ BEGIN_MESSAGE_MAP(CFileIOTestView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 // CFileIOTestView 생성/소멸
@@ -58,9 +62,19 @@ void CFileIOTestView::OnDraw(CDC* pDC)
 	if (!pDoc)
 		return;
 
-	pDC->SetMapMode(MM_LOMETRIC);
-	pDC->Rectangle(50, -50, 350, -350);
-	pDC->Ellipse(500, -50, 800, -350);
+	//pDC->SetMapMode(MM_LOMETRIC);
+	//pDC->Rectangle(50, -50, 350, -350);
+	//pDC->Ellipse(500, -50, 800, -350);
+
+	POSITION pos = pDoc->m_pointList.GetHeadPosition();
+	if (pos != NULL) {
+		CPoint point = pDoc->m_pointList.GetNext(pos);
+		pDC->MoveTo(point);
+	}
+	while (pos != NULL) {
+		CPoint point = pDoc->m_pointList.GetNext(pos);
+		pDC->LineTo(point);
+	}
 }
 
 
@@ -105,3 +119,37 @@ CFileIOTestDoc* CFileIOTestView::GetDocument() const // 디버그되지 않은 �
 
 
 // CFileIOTestView 메시지 처리기
+
+void CFileIOTestView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CFileIOTestDoc* pDoc = GetDocument();
+	pDoc->m_pointList.AddTail(point);
+	Invalidate();
+	
+	CView::OnLButtonDown(nFlags, point);
+}
+
+
+void CFileIOTestView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (nFlags == MK_LBUTTON) {
+		CFileIOTestDoc* pDoc = GetDocument();
+		pDoc->m_pointList.AddTail(point);
+		Invalidate();
+	}
+
+	CView::OnMouseMove(nFlags, point);
+}
+
+
+void CFileIOTestView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CFileIOTestDoc* pDoc = GetDocument();
+	pDoc->m_pointList.AddTail(point);
+	Invalidate();
+
+	CView::OnLButtonUp(nFlags, point);
+}
