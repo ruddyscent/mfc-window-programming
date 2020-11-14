@@ -63,6 +63,17 @@ void CFileIOTestDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: 여기에 로딩 코드를 추가합니다.
+		CFile* cfile = ar.GetFile();
+		cfile->SeekToEnd();
+		cfile->Seek(-2, CFile::current);
+		char buffer[2];
+		cfile->Read(buffer, 2);
+		if (buffer[0] == '\r' && buffer[1] == '\n') {
+			AfxMessageBox(_T("윈도우 텍스트 파일입니다."));
+		}
+		else {
+			AfxMessageBox(_T("윈도우 텍스트 파일이 아닙니다."));
+		}
 	}
 }
 
