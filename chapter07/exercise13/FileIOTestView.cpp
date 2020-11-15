@@ -59,11 +59,14 @@ void CFileIOTestView::OnDraw(CDC* pDC)
 		return;
 	
 	if (pDoc->m_image != NULL) {
+		CDC* dcmem = CDC::FromHandle(pDoc->m_image.GetDC());
 		CRect rect;
 		GetClientRect(rect);
 		pDC->StretchBlt(0, 0, rect.Width(), rect.Height(),
-			CDC::FromHandle(pDoc->m_image.GetDC()),
+			//CDC::FromHandle(pDoc->m_image.GetDC()),
+			dcmem,
 			0, 0, pDoc->m_image.GetWidth(), pDoc->m_image.GetHeight(), SRCCOPY);
+		pDoc->m_image.ReleaseDC();
 	}
 }
 
