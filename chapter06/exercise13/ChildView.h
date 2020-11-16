@@ -37,5 +37,6 @@ public:
 	afx_msg void OnColorRed();
 	afx_msg void OnColorGreen();
 	afx_msg void OnColorBlue();
+	afx_msg void OnWindowMinimize();
 };
 

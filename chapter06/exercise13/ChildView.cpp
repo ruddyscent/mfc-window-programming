@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_COMMAND(ID_COLOR_RED, &CChildView::OnColorRed)
 	ON_COMMAND(ID_COLOR_GREEN, &CChildView::OnColorGreen)
 	ON_COMMAND(ID_COLOR_BLUE, &CChildView::OnColorBlue)
+	ON_COMMAND(ID_WINDOW_MINIMIZE, &CChildView::OnWindowMinimize)
 END_MESSAGE_MAP()
 
 
@@ -82,4 +83,10 @@ void CChildView::OnColorBlue()
 {
 	m_color = RGB(0, 0, 255);
 	Invalidate();
+}
+
+
+void CChildView::OnWindowMinimize()
+{
+	AfxGetMainWnd()->ShowWindow(SW_MINIMIZE);
 }
