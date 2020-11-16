@@ -15,6 +15,7 @@ protected:
 
 // 특성입니다.
 public:
+	CStatusBar        m_wndStatusBar;
 
 // 작업입니다.
 public:
@@ -34,7 +35,6 @@ public:
 
 protected:  // 컨트롤 모음이 포함된 멤버입니다.
 	CToolBar          m_wndToolBar;
-	CStatusBar        m_wndStatusBar;
 	CChildView    m_wndView;
 
 // 생성된 메시지 맵 함수

@@ -32,5 +32,7 @@ public:
 protected:
 	afx_msg void OnPaint();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 };
 

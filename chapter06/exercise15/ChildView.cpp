@@ -6,6 +6,7 @@
 #include "framework.h"
 #include "Simple2.h"
 #include "ChildView.h"
+#include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -25,6 +26,7 @@ CChildView::~CChildView()
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 
@@ -53,3 +55,15 @@ void CChildView::OnPaint()
 	// 그리기 메시지에 대해서는 CWnd::OnPaint()를 호출하지 마십시오.
 }
 
+
+
+void CChildView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CString str;
+	str.Format(_T("(%4d,%4d)"), point.x, point.y);
+	CMainFrame* pMainFrame = (CMainFrame*)AfxGetMainWnd();
+	pMainFrame->m_wndStatusBar.SetPaneText(0, str);
+
+	CWnd::OnMouseMove(nFlags, point);
+}
