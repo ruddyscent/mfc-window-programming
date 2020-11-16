@@ -24,8 +24,8 @@ END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
-	ID_SEPARATOR,           // 상태 줄 표시기
 	ID_INDICATOR_POS,
+	ID_SEPARATOR,           // 상태 줄 표시기
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
 	ID_INDICATOR_SCRL,
