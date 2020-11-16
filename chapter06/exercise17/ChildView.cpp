@@ -62,4 +62,8 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 	str.Format(_T("(%4d,%4d)"), point.x, point.y);
 	CMainFrame* pMainFrame = (CMainFrame*)AfxGetMainWnd();
 	pMainFrame->m_wndStatusBar.SetPaneText(1, str);
+
+	pMainFrame->ClientToScreen(&point);
+	str.Format(_T("(%4d,%4d)"), point.x, point.y);
+	pMainFrame->m_wndStatusBar.SetPaneText(2, str);
 }

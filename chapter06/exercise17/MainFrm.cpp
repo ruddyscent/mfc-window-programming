@@ -26,6 +26,7 @@ static UINT indicators[] =
 {
 	ID_SEPARATOR,           // 상태 줄 표시기
 	ID_INDICATOR_POS,
+	ID_INDICATOR_POS2,
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
 	ID_INDICATOR_SCRL,

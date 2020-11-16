@@ -6,6 +6,7 @@
 #define IDR_MAINFRAME                   128
 #define IDR_ShowCursorPosTYPE           130
 #define ID_INDICATOR_POS                59142
+#define ID_INDICATOR_POS2               59143
 
 // Next default values for new objects
 // 
