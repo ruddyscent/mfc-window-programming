@@ -33,7 +33,7 @@ BOOL CHelloApp::InitInstance()
 // 메인 윈도우 클래스를 정의한다.
 CMainFrame::CMainFrame()
 {
-	Create(NULL, _T("HelloMFC"));
+	Create(NULL, _T("Hello World"));
 }
 
 void CMainFrame::OnPaint()
