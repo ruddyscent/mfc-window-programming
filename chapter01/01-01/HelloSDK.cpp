@@ -11,7 +11,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	MSG msg;
 
 	// 윈도우 클래스를 초기화하고 운영체제에 등록한다.
-	wndclass.style = CS_HREDRAW | CS_VREDRAW; // 스타일 지정
+	wndclass.style = CS_HREDRAW | CS_VREDRAW | CS_NOCLOSE; // 스타일 지정
 	wndclass.lpfnWndProc = WndProc; // 윈도우 프로시저 이름
 	wndclass.cbClsExtra = 0; // 여분 메모리(0바이트)
 	wndclass.cbWndExtra = 0; // 여분 메모리(0바이트)
