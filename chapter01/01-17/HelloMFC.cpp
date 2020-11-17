@@ -45,7 +45,9 @@ void CMainFrame::OnPaint()
 
 void CMainFrame::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	MessageBox(_T("마우스 클릭!"), _T("마우스 메시지"));
+	if (MessageBox(_T("종료하시겠습니까?"), _T("마우스 메시지"), MB_ICONQUESTION | MB_YESNO) == IDYES) {
+		DestroyWindow();
+	}
 }
 
 // 메시지 맵을 선언한다.
