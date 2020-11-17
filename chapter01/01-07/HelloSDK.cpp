@@ -27,7 +27,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	hwnd = CreateWindow(TEXT("HelloClass"), TEXT("HelloSDK"),
 		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
 		CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
-	ShowWindow(hwnd, nCmdShow);
+	ShowWindow(hwnd, SW_MAXIMIZE);
 
 	// 메시지 큐에서 메시지를 하나씩 꺼내서 처리한다.
 	while (GetMessage(&msg, NULL, 0, 0) > 0) {
