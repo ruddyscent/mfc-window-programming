@@ -45,7 +45,7 @@ void CMainFrame::OnPaint()
 
 void CMainFrame::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	MessageBox(_T("마우스 클릭!"), _T("마우스 메시지"));
+	MessageBox(_T("마우스 클릭!"), _T("마우스 메시지"), MB_ICONQUESTION);
 }
 
 // 메시지 맵을 선언한다.
