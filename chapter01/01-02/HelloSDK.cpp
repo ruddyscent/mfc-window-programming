@@ -16,7 +16,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	wndclass.cbClsExtra = 0; // 여분 메모리(0바이트)
 	wndclass.cbWndExtra = 0; // 여분 메모리(0바이트)
 	wndclass.hInstance = hInstance; // 인스턴스 핸들
-	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION); // 아이콘 모양
+	wndclass.hIcon = LoadIcon(NULL, IDI_QUESTION); // 아이콘 모양
 	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW); // 커서 모양
 	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); // 배경(흰색)
 	wndclass.lpszMenuName = NULL; // 메뉴(NULL->메뉴 없음)
