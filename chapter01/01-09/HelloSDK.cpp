@@ -50,7 +50,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message,
 	case WM_CREATE:
 		return 0;
 	case WM_LBUTTONDOWN:
-		MessageBox(hwnd, TEXT("마우스 클릭!"), TEXT("마우스 메시지"), MB_OK);
+		MessageBox(hwnd, TEXT("마우스 클릭!"), TEXT("마우스 메시지"), MB_OK | MB_ICONQUESTION);
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hwnd, &ps);
