@@ -18,7 +18,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	wndclass.hInstance = hInstance; // 인스턴스 핸들
 	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION); // 아이콘 모양
 	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW); // 커서 모양
-	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); // 배경(흰색)
+	wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH); // 배경(흰색)
 	wndclass.lpszMenuName = NULL; // 메뉴(NULL->메뉴 없음)
 	wndclass.lpszClassName = TEXT("HelloClass"); // 윈도우 클래스 이름
 	if (!RegisterClass(&wndclass)) return 1;
