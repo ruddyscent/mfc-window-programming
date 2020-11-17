@@ -24,7 +24,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	if (!RegisterClass(&wndclass)) return 1;
 
 	// 윈도우를 생성하고 화면에 나타낸다.
-	hwnd = CreateWindow(TEXT("HelloClass"), TEXT("HelloSDK"),
+	hwnd = CreateWindow(TEXT("HelloClass"), TEXT("Hello World"),
 		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
 		CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
 	ShowWindow(hwnd, nCmdShow);
