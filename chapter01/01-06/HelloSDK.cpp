@@ -25,8 +25,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	// 윈도우를 생성하고 화면에 나타낸다.
 	hwnd = CreateWindow(TEXT("HelloClass"), TEXT("HelloSDK"),
-		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-		CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
+		WS_CAPTION | WS_POPUPWINDOW, 0, 0,
+		500, 200, NULL, NULL, hInstance, NULL);
 	ShowWindow(hwnd, nCmdShow);
 
 	// 메시지 큐에서 메시지를 하나씩 꺼내서 처리한다.
