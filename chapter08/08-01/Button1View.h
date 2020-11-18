@@ -49,6 +49,7 @@ protected:
 public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	void OnButtonClicked();
+	void OnCheckBoxClicked();
 };
 
 #ifndef _DEBUG  // Button1View.cpp의 디버그 버전

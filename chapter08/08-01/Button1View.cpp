@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CButton1View, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_CREATE()
 	ON_BN_CLICKED(101, OnButtonClicked)
+	ON_BN_CLICKED(102, OnCheckBoxClicked)
 END_MESSAGE_MAP()
 
 // CButton1View 생성/소멸
@@ -115,7 +116,7 @@ int CButton1View::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// 버튼 컨트롤을 생성한다.
 	m_pushbutton.Create(_T("푸시 버튼"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
 		CRect(20, 20, 160, 50), this, 101);
-	m_checkbox.Create(_T("체크 박스"), WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX,
+	m_checkbox.Create(_T("체크 박스"), WS_CHILD | WS_VISIBLE | BS_CHECKBOX,
 		CRect(20, 60, 160, 90), this, 102);
 	m_3state.Create(_T("3상태 체크 박스"), WS_CHILD | WS_VISIBLE | BS_AUTO3STATE,
 		CRect(20, 100, 160, 130), this, 103);
@@ -146,4 +147,14 @@ void CButton1View::OnButtonClicked()
 	str.Format(_T("버튼 상태: %d, %d, %d, %d"),
 		state_checkbox, state_3state, state_radio1, state_radio2);
 	MessageBox(str, _T("Button1 예제"), MB_ICONINFORMATION);
+}
+
+
+void CButton1View::OnCheckBoxClicked()
+{
+	// TODO: 여기에 구현 코드 추가.
+	if (m_checkbox.GetCheck() == BST_CHECKED)
+		m_checkbox.SetCheck(BST_UNCHECKED);
+	else
+		m_checkbox.SetCheck(BST_CHECKED);
 }
