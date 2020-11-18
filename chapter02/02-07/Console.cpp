@@ -34,9 +34,15 @@ int main()
 		else
 		{
 #if 1
-			CString str;
-			str.LoadString(IDS_APP_TITLE);
-			_tprintf(_T("Hello from %s!\n"), (LPCTSTR)str);
+			TCHAR szBuf[1024];
+			_tscanf_s(_T("%s"), szBuf, (UINT)_countof(szBuf));
+			CString input(szBuf);
+			int oploc = input.Find(_T("+"));
+			CString strLhs = input.Left(oploc);
+			CString strRhs = input.Right(oploc);
+			int iLhs = _tstoi(strLhs);
+			int	iRhs = _tstoi(strRhs);
+			_tprintf(_T("%s=%d\n"), (LPCTSTR)input, iLhs + iRhs);
 			getchar();
 #endif
 #if 0
