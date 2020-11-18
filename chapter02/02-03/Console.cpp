@@ -34,9 +34,10 @@ int main()
 		else
 		{
 #if 1
+			_tsetlocale(LC_ALL, _T(""));
 			CString str;
-			str.LoadString(IDS_APP_TITLE);
-			_tprintf(_T("Hello from %s!\n"), (LPCTSTR)str);
+			str.LoadString(IDS_MESSAGE);
+			_tprintf(_T("%s\n"), (LPCTSTR)str);
 			getchar();
 #endif
 #if 0
