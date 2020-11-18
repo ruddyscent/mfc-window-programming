@@ -34,9 +34,11 @@ int main()
 		else
 		{
 #if 1
-			CString str;
-			str.LoadString(IDS_APP_TITLE);
-			_tprintf(_T("Hello from %s!\n"), (LPCTSTR)str);
+			TCHAR szBuf[1024];
+			_tscanf_s(_T("%s"), szBuf, (UINT)_countof(szBuf));
+			CString str = CString(szBuf);
+			str.MakeLower();
+			MessageBox(NULL, (LPCTSTR)str, _T(""), MB_OK);
 			getchar();
 #endif
 #if 0
