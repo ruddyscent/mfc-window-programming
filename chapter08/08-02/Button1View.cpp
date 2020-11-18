@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CButton1View, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_CREATE()
 	ON_BN_CLICKED(101, OnButtonClicked)
+	ON_BN_CLICKED(103, On3ButtonClicked)
 END_MESSAGE_MAP()
 
 // CButton1View 생성/소멸
@@ -117,7 +118,7 @@ int CButton1View::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		CRect(20, 20, 160, 50), this, 101);
 	m_checkbox.Create(_T("체크 박스"), WS_CHILD | WS_VISIBLE | BS_AUTOCHECKBOX,
 		CRect(20, 60, 160, 90), this, 102);
-	m_3state.Create(_T("3상태 체크 박스"), WS_CHILD | WS_VISIBLE | BS_AUTO3STATE,
+	m_3state.Create(_T("3상태 체크 박스"), WS_CHILD | WS_VISIBLE | BS_3STATE,
 		CRect(20, 100, 160, 130), this, 103);
 	m_radio1.Create(_T("라디오 버튼 1"), WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON,
 		CRect(20, 170, 160, 200), this, 104);
@@ -146,4 +147,20 @@ void CButton1View::OnButtonClicked()
 	str.Format(_T("버튼 상태: %d, %d, %d, %d"),
 		state_checkbox, state_3state, state_radio1, state_radio2);
 	MessageBox(str, _T("Button1 예제"), MB_ICONINFORMATION);
+}
+
+
+void CButton1View::On3ButtonClicked()
+{
+	// TODO: 여기에 구현 코드 추가.
+	int state_3state = m_3state.GetCheck();
+	switch (state_3state) {
+	case BST_UNCHECKED:
+		m_3state.SetCheck(BST_CHECKED); 
+		break;
+	case BST_CHECKED:
+	case BST_INDETERMINATE:
+		m_3state.SetCheck(BST_UNCHECKED);
+		break;
+	}
 }
