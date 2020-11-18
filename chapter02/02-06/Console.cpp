@@ -34,9 +34,12 @@ int main()
 		else
 		{
 #if 1
-			CString str;
-			str.LoadString(IDS_APP_TITLE);
-			_tprintf(_T("Hello from %s!\n"), (LPCTSTR)str);
+			_tsetlocale(LC_ALL, _T(""));
+			TCHAR szBuf[1024];
+			_tscanf_s(_T("%s"), szBuf, (UINT)_countof(szBuf));
+			CString str(szBuf);
+			str.Replace(_T("하세요"), _T("하시오"));
+			_tprintf(_T("%s\n"), (LPCTSTR)str);
 			getchar();
 #endif
 #if 0
