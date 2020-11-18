@@ -34,9 +34,11 @@ int main()
 		else
 		{
 #if 1
-			CString str;
-			str.LoadString(IDS_APP_TITLE);
-			_tprintf(_T("Hello from %s!\n"), (LPCTSTR)str);
+			_tsetlocale(LC_ALL, _T(""));
+			CString str, format;
+			format.LoadString(IDS_FORMAT);
+			str.Format(format, _T("전경원"), 43);
+			_tprintf(_T("%s\n"), (LPCTSTR)str);
 			getchar();
 #endif
 #if 0
