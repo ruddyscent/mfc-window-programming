@@ -34,9 +34,16 @@ int main()
 		else
 		{
 #if 1
-			CString str;
-			str.LoadString(IDS_APP_TITLE);
-			_tprintf(_T("Hello from %s!\n"), (LPCTSTR)str);
+			_tsetlocale(LC_ALL, _T(""));
+			CRect rect;
+			_tscanf_s(_T("%d, %d, %d, %d"), &rect.left, &rect.top, &rect.right, &rect.bottom);
+			if (rect.IsRectEmpty()) {
+				rect.NormalizeRect();
+				_tprintf(_T("%d, %d, %d, %d"), rect.left, rect.top, rect.right, rect.bottom);
+			}
+			else {
+				_tprintf(_T("정상\n"));
+			}
 			getchar();
 #endif
 #if 0
