@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(CButton2View, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CFormView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_BN_CLICKED(IDC_BUTTON1, &CButton2View::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_CHECK2, &CButton2View::OnBnClickedCheck2)
 END_MESSAGE_MAP()
 
 // CButton2View 생성/소멸
@@ -70,6 +71,8 @@ void CButton2View::OnInitialUpdate()
 	m_checkbox.SetCheck(1);
 	m_3state.SetCheck(2);
 	m_radio2.SetCheck(1);
+
+	OnBnClickedCheck2();
 }
 
 
@@ -132,4 +135,29 @@ void CButton2View::OnBnClickedButton1()
 	str.Format(_T("버튼 상태: %d, %d, %d, %d"),
 		state_checkbox, state_3state, state_radio1, state_radio2);
 	MessageBox(str, _T("Button2 예제"), MB_ICONINFORMATION);
+}
+
+
+void CButton2View::OnBnClickedCheck2()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int state_3state = m_3state.GetCheck();
+	switch (state_3state) {
+	case BST_CHECKED:
+		m_radio1.EnableWindow(TRUE);
+		m_radio2.EnableWindow(TRUE);
+		break;
+	case BST_INDETERMINATE:
+		if (m_radio2.GetCheck()) {
+			m_radio1.SetCheck(BST_CHECKED);
+			m_radio2.SetCheck(BST_UNCHECKED);
+		}
+		m_radio1.EnableWindow(TRUE);
+		m_radio2.EnableWindow(FALSE);
+		break;
+	case BST_UNCHECKED:
+		m_radio1.EnableWindow(FALSE);
+		m_radio2.EnableWindow(FALSE);
+		break;
+	}
 }
