@@ -34,9 +34,9 @@ int main()
 		else
 		{
 #if 1
-			CString str;
-			str.LoadString(IDS_APP_TITLE);
-			_tprintf(_T("Hello from %s!\n"), (LPCTSTR)str);
+			CTime now = CTime::GetCurrentTime();
+			CString str = now.FormatGmt("%A, %B %d, %Y");
+			_tprintf((LPCTSTR)str);
 			getchar();
 #endif
 #if 0
