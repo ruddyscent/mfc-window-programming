@@ -37,7 +37,7 @@ int main()
 			
 			CTime now = CTime::GetCurrentTime();
 			CString str = now.Format(_T("%Y-%m-%d %H:%M:%S"));
-			_tprintf(str);
+			_tprintf((LPCTSTR)str);
 			getchar();
 #endif
 #if 0
