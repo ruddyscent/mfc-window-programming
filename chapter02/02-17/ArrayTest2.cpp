@@ -26,6 +26,11 @@ struct Point3D {
 	Point3D(int x0, int y0, int z0) { x = x0; y = y0; z = z0; }
 };
 
+struct Point3DColor : Point3D {
+	COLORREF color;
+	Point3DColor() {} // 템플릿 클래스에 사용할 때는 기본 생성자가 필요하다.
+	Point3DColor(int x0, int y0, int z0, COLORREF color0) { x = x0; y = y0; z = z0; color = color0; }
+};
 
 int main()
 {
@@ -45,15 +50,15 @@ int main()
 		else
 		{
 			// Point3D 객체를 저장할 수 있는 배열 객체를 생성한다.
-			CArray<Point3D, Point3D&> array;
+			CArray<Point3DColor, Point3DColor&> array;
 			array.SetSize(5);
 			for (int i = 0; i < 5; i++) {
-				Point3D pt(i, i * 10, i * 100);
+				Point3DColor pt(i, i * 10, i * 100, RGB(i, i * 2, i * 3));
 				array[i] = pt;
 			}
 			for (int i = 0; i < 5; i++) {
-				Point3D pt = array[i];
-				_tprintf(_T("%d, %d, %d\n"), pt.x, pt.y, pt.z);
+				Point3DColor pt = array[i];
+				_tprintf(_T("%d, %d, %d, %ld\n"), pt.x, pt.y, pt.z, pt.color); 
 			}
 		}
 	}
