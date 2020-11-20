@@ -35,7 +35,7 @@ int main()
 		{
 #if 1
 			CRect rect({ 120, 60, 270, 270 });
-			_tprintf(_T("%d, %d\n"), rect.Width(), rect.Height());
+			_tprintf(_T("%d(%d, %d)\n"), rect.Size(), rect.Width(), rect.Height());
 			getchar();
 #endif
 #if 0
