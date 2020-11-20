@@ -34,9 +34,10 @@ int main()
 		else
 		{
 #if 1
-			CString str;
-			str.LoadString(IDS_APP_TITLE);
-			_tprintf(_T("Hello from %s!\n"), (LPCTSTR)str);
+			_tsetlocale(LC_ALL, _T(""));
+			CTime date = CTime::GetCurrentTime();
+			date += CTimeSpan(1000, 0, 0, 0);
+			_tprintf(_T("%d년 %d월 %d일\n"), date.GetYear(), date.GetMonth(), date.GetDay());
 			getchar();
 #endif
 #if 0
