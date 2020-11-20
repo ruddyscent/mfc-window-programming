@@ -37,7 +37,7 @@ int main()
 			_tsetlocale(LC_ALL, _T(""));
 			CRect rect({ 115, 245, 232, 397 });
 			CPoint pt;
-			_tscanf_s(_T("%d, %d"), &(pt.x), &(pt.y));
+			_tscanf_s(_T("%d, %d"), &pt.x, &pt.y);
 			if (rect.PtInRect(pt)) {
 				_tprintf(_T("내부\n"));
 			}
