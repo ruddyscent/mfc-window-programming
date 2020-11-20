@@ -50,6 +50,7 @@ void CButton2View::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CHECK2, m_3state);
 	DDX_Control(pDX, IDC_RADIO1, m_radio1);
 	DDX_Control(pDX, IDC_RADIO2, m_radio2);
+	DDX_Control(pDX, IDC_BUTTON1, m_push);
 }
 
 BOOL CButton2View::PreCreateWindow(CREATESTRUCT& cs)
@@ -123,6 +124,20 @@ CButton2Doc* CButton2View::GetDocument() const // 디버그되지 않은 버전�
 
 void CButton2View::OnBnClickedButton1()
 {
+	UINT uStyle = m_push.GetButtonStyle();
+	switch (uStyle) {
+	case BS_DEFPUSHBUTTON:
+		uStyle = BS_AUTOCHECKBOX;
+		break;
+	case BS_AUTOCHECKBOX:
+		uStyle = BS_AUTORADIOBUTTON;
+		break;
+	case BS_AUTORADIOBUTTON:
+		uStyle = BS_DEFPUSHBUTTON;
+		break;
+	}
+	m_push.SetButtonStyle(uStyle);
+
 	int state_checkbox = m_checkbox.GetCheck();
 	int state_3state = m_3state.GetCheck();
 	int state_radio1 = m_radio1.GetCheck();
