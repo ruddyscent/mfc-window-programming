@@ -44,18 +44,25 @@ int main()
 		}
 		else
 		{
-			// Point3D 객체를 저장할 수 있는 리스트 객체를 생성한다.
-			CList<Point3D, Point3D&> list;
+			CList<UINT, UINT&> list;
 
 			// 리스트 끝에 데이터를 추가한다.
-			for (int i = 0; i < 5; i++)
-				list.AddTail(Point3D(i, i * 10, i * 100));
+			for (UINT i = 1; i <= 10; i++)
+				list.AddTail(i);
 
-			// 리스트 맨 앞에서부터 순환하면서 데이터를 출력한다.
-			POSITION pos = list.GetHeadPosition();
-			while (pos != NULL) {
-				Point3D pt = list.GetNext(pos);
-				_tprintf(_T("%d, %d, %d\n"), pt.x, pt.y, pt.z);
+			while (list.GetCount()) {
+				UINT nItem = 0;
+				_tscanf_s(_T("%d"), &nItem);
+
+				POSITION pos = list.Find(nItem);
+				list.RemoveAt(pos);
+				
+				// 리스트 맨 앞에서부터 순환하면서 데이터를 출력한다.
+				pos = list.GetHeadPosition();
+				while (pos != NULL) {
+					_tprintf(_T("%u "), list.GetNext(pos));
+				}
+				_tprintf(_T("\n"));
 			}
 		}
 	}
