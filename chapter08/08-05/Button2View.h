@@ -53,6 +53,8 @@ public:
 	CButton m_radio1;
 	CButton m_radio2;
 	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedCheck1();
+	CButton m_push;
 };
 
 #ifndef _DEBUG  // Button2View.cpp의 디버그 버전

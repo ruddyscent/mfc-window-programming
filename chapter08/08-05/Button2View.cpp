@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(CButton2View, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CFormView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_BN_CLICKED(IDC_BUTTON1, &CButton2View::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_CHECK1, &CButton2View::OnBnClickedCheck1)
 END_MESSAGE_MAP()
 
 // CButton2View 생성/소멸
@@ -50,6 +51,7 @@ void CButton2View::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CHECK2, m_3state);
 	DDX_Control(pDX, IDC_RADIO1, m_radio1);
 	DDX_Control(pDX, IDC_RADIO2, m_radio2);
+	DDX_Control(pDX, IDC_BUTTON1, m_push);
 }
 
 BOOL CButton2View::PreCreateWindow(CREATESTRUCT& cs)
@@ -132,4 +134,16 @@ void CButton2View::OnBnClickedButton1()
 	str.Format(_T("버튼 상태: %d, %d, %d, %d"),
 		state_checkbox, state_3state, state_radio1, state_radio2);
 	MessageBox(str, _T("Button2 예제"), MB_ICONINFORMATION);
+}
+
+
+void CButton2View::OnBnClickedCheck1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int state_checkbox = m_checkbox.GetCheck();
+
+	if (state_checkbox)
+		m_push.EnableWindow(TRUE);
+	else
+		m_push.EnableWindow(FALSE);
 }
