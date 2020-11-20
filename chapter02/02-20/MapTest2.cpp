@@ -47,15 +47,37 @@ int main()
 
 			// 맵(CString -> UINT) 객체를 생성하고 초기화한다.
 			CMap<CString, CString&, UINT, UINT&> map;
-			map[CString(_T("사과"))] = 10;
-			map[CString(_T("딸기"))] = 25;
-			map[CString(_T("포도"))] = 40;
-			map[CString(_T("수박"))] = 15;
+			map[CString(_T("전승환"))] = 172;
+			map[CString(_T("박철수"))] = 164;
+			map[CString(_T("이해인"))] = 158;
+			map[CString(_T("구오성"))] = 182;
+			map[CString(_T("김순희"))] = 159;
+			map[CString(_T("박상훈"))] = 177;
+			map[CString(_T("최규석"))] = 172;
+			map[CString(_T("백설현"))] = 168;
+			map[CString(_T("김정훈"))] = 170;
+			map[CString(_T("한수길"))] = 168;
+			map[CString(_T("정지민"))] = 172;
+			map[CString(_T("최진"))] = 179;
 
-			// 특정 키값을 가진 데이터를 검색한다.
-			UINT nCount;
-			if (map.Lookup(CString(_T("수박")), nCount))
-				_tprintf(_T("수박 %d상자가 남아 있습니다.\n"), nCount);
+			TCHAR szName[100];
+			_tscanf_s(_T("%s"), szName, (UINT)_countof(szName));
+
+			UINT height;
+			if (map.Lookup(CString(szName), height))
+				_tprintf(_T("키: %d cm\n"), height);
+			else {
+				height = _wtoi(szName);
+				POSITION pos = map.GetStartPosition();
+				while (pos != NULL) {
+					CString key;
+					UINT value;
+					map.GetNextAssoc(pos, key, value);
+					if (height == value)
+						_tprintf(_T("%s "), key);
+				}
+				_tprintf(_T("\n"));
+			}
 		}
 	}
 	else
