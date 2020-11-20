@@ -34,13 +34,27 @@ int main()
 		else
 		{
 #if 1
-			CUIntArray array; // 객체를 생성한다.
-			array.SetSize(10); // 배열 크기를 설정한다.
-			for (int i = 0; i < 10; i++)
-				array[i] = i * 10; // 값을 대입한다.
-			for (int i = 0; i < 10; i++)
-				_tprintf(_T("%d "), array[i]); // 값을 출력한다.
+			_tsetlocale(LC_ALL, _T(""));
+			UINT a, b;
+			_tscanf_s(_T("%d, %d"), &a, &b);
+			UINT min = a < b ? a : b;
+			UINT max = a < b ? b : a;
+			CUIntArray array;
+			array.SetSize(max - min + 1);
+			for (UINT i = 0; i < max - min + 1; i++) {
+				array[i] = i + min;
+			}
+
+			UINT sum = 0;
+			for (UINT i = 0; i < max - min + 1; i++) {
+				_tprintf(_T("%d "), array[max - min - i]);
+				sum += array[max - min - i];
+			}
 			_tprintf(_T("\n"));
+			
+			float mean = (float)sum / (max - min + 1);
+			_tprintf(_T("합: %u, 평균: %0.1f\n"), sum, mean);
+			getchar();
 #endif
 #if 0
 			_tsetlocale(LC_ALL, _T("")); // 유니코드 한국어 출력에 필요
