@@ -37,7 +37,7 @@ int main()
 			TCHAR* szFruits[] = {
 				_T("사과"), _T("딸기"), _T("포도"), _T("오렌지"), _T("자두")
 			};
-			CStringList list; // 리스트 객체를 생성한다.
+			CList<CString, LPCTSTR> list; // 리스트 객체를 생성한다.
 			for (int i = 0; i < 5; i++)
 				list.AddTail(szFruits[i]); // 리스트 끝에 데이터를 추가한다.
 
