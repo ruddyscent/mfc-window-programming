@@ -34,9 +34,8 @@ int main()
 		else
 		{
 #if 1
-			CString str;
-			str.LoadString(IDS_APP_TITLE);
-			_tprintf(_T("Hello from %s!\n"), (LPCTSTR)str);
+			CRect rect({ 120, 60, 270, 270 });
+			_tprintf(_T("%d, %d\n"), rect.Width(), rect.Height());
 			getchar();
 #endif
 #if 0
