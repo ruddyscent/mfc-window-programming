@@ -56,7 +56,7 @@ int main()
 			if (!sock.Listen())
 				ErrQuit(sock.GetLastError());
 
-			TCHAR buf[256 + 1];
+			INT buf[2];
 			int nbytes;
 
 			while (1) {
@@ -71,13 +71,20 @@ int main()
 					(LPCTSTR)PeerAddress, PeerPort);
 
 				while (1) {
-					nbytes = newsock.Receive(buf, 256);
+					nbytes = newsock.Receive(buf, 2 * sizeof(INT));
 					if (nbytes == 0 || nbytes == SOCKET_ERROR) {
 						break;
 					}
 					else {
-						buf[nbytes] = _T('\0');
-						_tprintf(_T("%s"), buf);
+						_tprintf(_T("%d + %d\n"), buf[0], buf[1]);
+					}
+
+					INT sum = buf[0] + buf[1];
+					newsock.Send(&sum, sizeof(INT));
+					if (nbytes == SOCKET_ERROR)
+						ErrQuit(sock.GetLastError());
+					else {
+						_tprintf(_T("%d바이트 전송\n"), nbytes);
 					}
 				}
 				newsock.Close();

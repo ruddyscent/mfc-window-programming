@@ -56,17 +56,24 @@ int main()
 			if (!sock.Connect(_T("127.0.0.1"), 8000))
 				ErrQuit(sock.GetLastError());
 
-			TCHAR buf[256];
+			INT buf[2];
 			int nbytes;
 
-			for (int i = 0; i < 5; i++) {
-				wsprintf(buf, _T("%d번째 테스트 메시지\r\n"), i);
-				nbytes = sock.Send(buf, 256);
+			while (TRUE) {
+				_tscanf_s(_T("%d + %d"), &buf[0], &buf[1]);
+				nbytes = sock.Send(buf, 2 * sizeof(INT));
 				if (nbytes == SOCKET_ERROR)
 					ErrQuit(sock.GetLastError());
 				else {
-					_tprintf(_T("<%d> %d바이트 전송\n"), i, nbytes);
-					Sleep(1000);
+					_tprintf(_T("%d바이트 전송\n"), nbytes);
+				}
+
+				nbytes = sock.Receive(buf, sizeof(INT));
+				if (nbytes == 0 || nbytes == SOCKET_ERROR) {
+					break;
+				}
+				else {
+					_tprintf(_T("%d\n"), buf[0]);
 				}
 			}
 			sock.Close();
