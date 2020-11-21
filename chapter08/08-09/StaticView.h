@@ -50,6 +50,7 @@ protected:
 public:
 	CStatic m_metafile;
 	afx_msg void OnStnClickedMetafile();
+	CStatic m_bitmap;
 };
 
 #ifndef _DEBUG  // StaticView.cpp의 디버그 버전
