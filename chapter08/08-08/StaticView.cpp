@@ -62,7 +62,8 @@ void CStaticView::OnInitialUpdate()
 	CFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
-	m_metafile.SetEnhMetaFile(::GetEnhMetaFile(_T("test.emf")));
+	m_metafile.ModifyStyle(SS_ENHMETAFILE, 0);
+	m_metafile.SetWindowText(_T("마우스를 클릭하세요"));
 }
 
 
@@ -116,5 +117,12 @@ CStaticDoc* CStaticView::GetDocument() const // 디버그되지 않은 버전은
 
 void CStaticView::OnStnClickedMetafile()
 {
-	MessageBox(_T("확장 메타파일 그림 클릭!"));
+	if (m_metafile.GetStyle() & SS_ENHMETAFILE) {
+		m_metafile.ModifyStyle(SS_ENHMETAFILE, 0);
+		m_metafile.SetWindowText(_T("마우스를 클릭하세요"));
+	}
+	else {
+		m_metafile.ModifyStyle(0, SS_ENHMETAFILE);
+		m_metafile.SetEnhMetaFile(::GetEnhMetaFile(_T("test.emf")));
+	}
 }
