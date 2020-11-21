@@ -79,6 +79,13 @@ int main()
 						buf[nbytes] = _T('\0');
 						_tprintf(_T("%s"), buf);
 					}
+
+					nbytes = newsock.Send(buf, 256);
+					if (nbytes == SOCKET_ERROR)
+						ErrQuit(sock.GetLastError());
+					else {
+						_tprintf(_T("%d바이트 전송\n"), nbytes);
+					}
 				}
 				newsock.Close();
 				_tprintf(_T("### 접속 종료 ###\n\n"));
