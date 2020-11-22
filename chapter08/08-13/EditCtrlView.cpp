@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CEditCtrlView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_EN_CHANGE(IDC_MYEDIT, &CEditCtrlView::OnEnChangeMyedit)
 	ON_EN_MAXTEXT(IDC_MYEDIT, &CEditCtrlView::OnEnMaxtextMyedit)
+	ON_BN_CLICKED(IDC_BTN_CONFIRM, &CEditCtrlView::OnBnClickedBtnConfirm)
 END_MESSAGE_MAP()
 
 // CEditCtrlView 생성/소멸
@@ -49,6 +50,7 @@ void CEditCtrlView::DoDataExchange(CDataExchange* pDX)
 	CFormView::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_MYEDIT, m_edit);
 	DDX_Control(pDX, IDC_MYSTATIC, m_static);
+	DDX_Control(pDX, IDC_BTN_CONFIRM, m_confirm);
 }
 
 BOOL CEditCtrlView::PreCreateWindow(CREATESTRUCT& cs)
@@ -65,6 +67,7 @@ void CEditCtrlView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 	m_edit.SetLimitText(20);
+	m_confirm.ModifyStyle(0, BS_DEFPUSHBUTTON);
 }
 
 
@@ -118,13 +121,20 @@ CEditCtrlDoc* CEditCtrlView::GetDocument() const // 디버그되지 않은 버�
 
 void CEditCtrlView::OnEnChangeMyedit()
 {
-	CString str;
-	m_edit.GetWindowText(str);
-	m_static.SetWindowText(str);
 }
 
 
 void CEditCtrlView::OnEnMaxtextMyedit()
 {
 	MessageBox(_T("최대 길이 도달!"), _T("오류"), MB_ICONERROR);
+}
+
+
+void CEditCtrlView::OnBnClickedBtnConfirm()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CString str;
+	m_edit.GetWindowText(str);
+	m_static.SetWindowText(str);
+	m_edit.SetWindowText(_T(""));
 }
