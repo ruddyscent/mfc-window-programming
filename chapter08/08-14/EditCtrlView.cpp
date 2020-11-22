@@ -29,6 +29,10 @@ BEGIN_MESSAGE_MAP(CEditCtrlView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_EN_CHANGE(IDC_MYEDIT, &CEditCtrlView::OnEnChangeMyedit)
 	ON_EN_MAXTEXT(IDC_MYEDIT, &CEditCtrlView::OnEnMaxtextMyedit)
+	ON_COMMAND(ID_EDIT_UNDO, &CEditCtrlView::OnEditUndo)
+	ON_COMMAND(ID_EDIT_COPY, &CEditCtrlView::OnEditCopy)
+	ON_COMMAND(ID_EDIT_CUT, &CEditCtrlView::OnEditCut)
+	ON_COMMAND(ID_EDIT_PASTE, &CEditCtrlView::OnEditPaste)
 END_MESSAGE_MAP()
 
 // CEditCtrlView 생성/소멸
@@ -127,4 +131,32 @@ void CEditCtrlView::OnEnChangeMyedit()
 void CEditCtrlView::OnEnMaxtextMyedit()
 {
 	MessageBox(_T("최대 길이 도달!"), _T("오류"), MB_ICONERROR);
+}
+
+
+void CEditCtrlView::OnEditUndo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	m_edit.Undo();
+}
+
+
+void CEditCtrlView::OnEditCopy()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	m_edit.Copy();
+}
+
+
+void CEditCtrlView::OnEditCut()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	m_edit.Cut();
+}
+
+
+void CEditCtrlView::OnEditPaste()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	m_edit.Paste();
 }
