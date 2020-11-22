@@ -29,6 +29,8 @@ BEGIN_MESSAGE_MAP(CEditCtrlView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_EN_CHANGE(IDC_MYEDIT, &CEditCtrlView::OnEnChangeMyedit)
 	ON_EN_MAXTEXT(IDC_MYEDIT, &CEditCtrlView::OnEnMaxtextMyedit)
+	ON_COMMAND(ID_VIEW_READONLY, &CEditCtrlView::OnViewReadonly)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_READONLY, &CEditCtrlView::OnUpdateViewReadonly)
 END_MESSAGE_MAP()
 
 // CEditCtrlView 생성/소멸
@@ -65,6 +67,7 @@ void CEditCtrlView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 	m_edit.SetLimitText(20);
+	m_readonly = FALSE;
 }
 
 
@@ -127,4 +130,25 @@ void CEditCtrlView::OnEnChangeMyedit()
 void CEditCtrlView::OnEnMaxtextMyedit()
 {
 	MessageBox(_T("최대 길이 도달!"), _T("오류"), MB_ICONERROR);
+}
+
+
+void CEditCtrlView::OnViewReadonly()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (m_readonly) {
+		m_readonly = FALSE;
+		m_edit.SetReadOnly(FALSE);
+	}
+	else {
+		m_readonly = TRUE;
+		m_edit.SetReadOnly();
+	}
+}
+
+
+void CEditCtrlView::OnUpdateViewReadonly(CCmdUI* pCmdUI)
+{
+	// TODO: 여기에 명령 업데이트 UI 처리기 코드를 추가합니다.
+	pCmdUI->SetCheck(m_readonly);
 }
