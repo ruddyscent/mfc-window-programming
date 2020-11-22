@@ -52,6 +52,7 @@ public:
 	CStatic m_static;
 	afx_msg void OnEnChangeMyedit();
 	afx_msg void OnEnMaxtextMyedit();
+	CStatic m_password;
 };
 
 #ifndef _DEBUG  // EditCtrlView.cpp의 디버그 버전

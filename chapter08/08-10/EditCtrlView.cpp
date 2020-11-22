@@ -49,6 +49,7 @@ void CEditCtrlView::DoDataExchange(CDataExchange* pDX)
 	CFormView::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_MYEDIT, m_edit);
 	DDX_Control(pDX, IDC_MYSTATIC, m_static);
+	DDX_Control(pDX, IDC_PASSWORD, m_password);
 }
 
 BOOL CEditCtrlView::PreCreateWindow(CREATESTRUCT& cs)
@@ -121,6 +122,12 @@ void CEditCtrlView::OnEnChangeMyedit()
 	CString str;
 	m_edit.GetWindowText(str);
 	m_static.SetWindowText(str);
+
+	CString password;
+	m_password.GetWindowText(password);
+
+	if (str == password)
+		MessageBox(_T("통과"), _T(""));
 }
 
 
