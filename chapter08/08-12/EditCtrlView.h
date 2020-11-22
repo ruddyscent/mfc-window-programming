@@ -19,6 +19,7 @@ public:
 // 특성입니다.
 public:
 	CEditCtrlDoc* GetDocument() const;
+	UINT_PTR m_timer;
 
 // 작업입니다.
 public:
@@ -52,6 +53,7 @@ public:
 	CStatic m_static;
 	afx_msg void OnEnChangeMyedit();
 	afx_msg void OnEnMaxtextMyedit();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
 
 #ifndef _DEBUG  // EditCtrlView.cpp의 디버그 버전

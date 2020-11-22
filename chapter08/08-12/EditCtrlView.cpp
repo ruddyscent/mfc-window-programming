@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CEditCtrlView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_EN_CHANGE(IDC_MYEDIT, &CEditCtrlView::OnEnChangeMyedit)
 	ON_EN_MAXTEXT(IDC_MYEDIT, &CEditCtrlView::OnEnMaxtextMyedit)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 // CEditCtrlView 생성/소멸
@@ -121,10 +122,22 @@ void CEditCtrlView::OnEnChangeMyedit()
 	CString str;
 	m_edit.GetWindowText(str);
 	m_static.SetWindowText(str);
+	AfxGetMainWnd()->SetWindowText(str);
+	if (m_timer != NULL)
+		KillTimer(m_timer);
+	m_timer = SetTimer(1, 3000, NULL);
 }
 
 
 void CEditCtrlView::OnEnMaxtextMyedit()
 {
 	MessageBox(_T("최대 길이 도달!"), _T("오류"), MB_ICONERROR);
+}
+
+
+void CEditCtrlView::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	AfxGetMainWnd()->SetWindowText(_T(""));
+	CFormView::OnTimer(nIDEvent);
 }
