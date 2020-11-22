@@ -52,6 +52,7 @@ public:
 	CStatic m_static;
 	afx_msg void OnEnChangeMyedit();
 	afx_msg void OnEnMaxtextMyedit();
+	afx_msg void OnPaint();
 };
 
 #ifndef _DEBUG  // EditCtrlView.cpp의 디버그 버전

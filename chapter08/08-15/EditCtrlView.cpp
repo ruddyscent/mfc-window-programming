@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CEditCtrlView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_EN_CHANGE(IDC_MYEDIT, &CEditCtrlView::OnEnChangeMyedit)
 	ON_EN_MAXTEXT(IDC_MYEDIT, &CEditCtrlView::OnEnMaxtextMyedit)
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 // CEditCtrlView 생성/소멸
@@ -65,6 +66,7 @@ void CEditCtrlView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 	m_edit.SetLimitText(20);
+	m_edit.ModifyStyle(0, ES_MULTILINE | ES_AUTOVSCROLL);
 }
 
 
@@ -127,4 +129,14 @@ void CEditCtrlView::OnEnChangeMyedit()
 void CEditCtrlView::OnEnMaxtextMyedit()
 {
 	MessageBox(_T("최대 길이 도달!"), _T("오류"), MB_ICONERROR);
+}
+
+
+void CEditCtrlView::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+					   // TODO: 여기에 메시지 처리기 코드를 추가합니다.
+					   // 그리기 메시지에 대해서는 CFormView::OnPaint()을(를) 호출하지 마십시오.
+
+	m_edit.SetWindowText(GetDocument()->m_content);
 }

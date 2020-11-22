@@ -63,6 +63,12 @@ void CEditCtrlDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: 여기에 로딩 코드를 추가합니다.
+		m_content.Empty();
+		CString line;
+		while (ar.ReadString(line)) {
+			m_content.Append(line);
+		}
+		AfxGetMainWnd()->Invalidate();
 	}
 }
 
