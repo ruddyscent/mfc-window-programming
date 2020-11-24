@@ -55,6 +55,9 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	//  Window 클래스 또는 스타일을 수정합니다.
 
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
+	cs.style &= WS_POPUPWINDOW | WS_CAPTION | WS_OVERLAPPEDWINDOW;
+	cs.cx = 1024;
+	cs.cy = 768;
 	cs.lpszClass = AfxRegisterWndClass(0);
 	return TRUE;
 }
