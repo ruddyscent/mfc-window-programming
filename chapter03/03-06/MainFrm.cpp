@@ -55,6 +55,8 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	//  Window 클래스 또는 스타일을 수정합니다.
 
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
+	cs.x = 100;
+	cs.y = 200;
 	cs.lpszClass = AfxRegisterWndClass(0);
 	return TRUE;
 }
