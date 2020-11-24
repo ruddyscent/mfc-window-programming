@@ -10,5 +10,5 @@ These codes are my solutions for '쉽게 배우는 MFC 윈도우 프로그래밍
 * Chapter 3: completed
 * Chapter 6: partially completed
 * Chapter 7: stuck at problem 20
-* Chapter 8: stuck at problem 9, 15
+* Chapter 8: stuck at problem 9, 15, 17
 * Chapter 15: stuck at problem 3
