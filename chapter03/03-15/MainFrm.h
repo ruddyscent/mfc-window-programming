@@ -11,7 +11,7 @@ class CMainFrame : public CFrameWnd
 public:
 	CMainFrame() noexcept;
 protected: 
-	DECLARE_DYNAMIC(CMainFrame)
+	DECLARE_DYNCREATE(CMainFrame)
 
 // 특성입니다.
 public:

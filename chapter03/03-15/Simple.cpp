@@ -63,7 +63,10 @@ BOOL CSimpleApp::InitInstance()
 
 	// 주 창을 만들기 위해 이 코드에서는 새 프레임 창 개체를
 	// 만든 다음 이를 애플리케이션의 주 창 개체로 설정합니다.
-	CFrameWnd* pFrame = new CMainFrame;
+	CRuntimeClass* pRuntimeClass = RUNTIME_CLASS(CMainFrame);
+	CFrameWnd* pFrame = (CFrameWnd*) pRuntimeClass->CreateObject();
+	ASSERT(pFrame->IsKindOf(RUNTIME_CLASS(CMainFrame)));
+
 	if (!pFrame)
 		return FALSE;
 	m_pMainWnd = pFrame;
