@@ -77,7 +77,7 @@ BOOL CSimpleApp::InitInstance()
 
 
 	// 창 하나만 초기화되었으므로 이를 표시하고 업데이트합니다.
-	pFrame->ShowWindow(SW_SHOW);
+	pFrame->ShowWindow(SW_SHOWMAXIMIZED);
 	pFrame->UpdateWindow();
 	return TRUE;
 }
