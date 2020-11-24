@@ -29,6 +29,8 @@ BEGIN_MESSAGE_MAP(CListBoxView, CFormView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CFormView::OnFilePrintPreview)
 	ON_BN_CLICKED(IDC_RIGHT, &CListBoxView::OnBnClickedRight)
 	ON_BN_CLICKED(IDC_LEFT, &CListBoxView::OnBnClickedLeft)
+	ON_LBN_DBLCLK(IDC_LIST1, &CListBoxView::OnLbnDblclkList1)
+	ON_LBN_DBLCLK(IDC_LIST2, &CListBoxView::OnLbnDblclkList2)
 END_MESSAGE_MAP()
 
 // CListBoxView 생성/소멸
@@ -147,4 +149,18 @@ void CListBoxView::OnBnClickedLeft()
 		m_list1.AddString(str);
 		AfxGetMainWnd()->SetWindowText(_T("오른쪽에서 왼쪽으로..."));
 	}
+}
+
+
+void CListBoxView::OnLbnDblclkList1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	OnBnClickedRight();
+}
+
+
+void CListBoxView::OnLbnDblclkList2()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	OnBnClickedLeft();
 }

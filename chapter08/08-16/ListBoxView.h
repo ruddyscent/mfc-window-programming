@@ -54,6 +54,8 @@ public:
 	CButton m_left;
 	afx_msg void OnBnClickedRight();
 	afx_msg void OnBnClickedLeft();
+	afx_msg void OnLbnDblclkList1();
+	afx_msg void OnLbnDblclkList2();
 };
 
 #ifndef _DEBUG  // ListBoxView.cpp의 디버그 버전
