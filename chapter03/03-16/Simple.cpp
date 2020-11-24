@@ -85,6 +85,7 @@ BOOL CSimpleApp::InitInstance()
 int CSimpleApp::ExitInstance()
 {
 	//TODO: 추가한 추가 리소스를 처리합니다.
+	m_pMainWnd->MessageBox(_T("프로그램을 종료합니다"), _T("종료"));
 	return CWinApp::ExitInstance();
 }
 
