@@ -47,6 +47,6 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 void CChildView::OnPaint()
 {
 	CPaintDC dc(this); // 그리기를 위한 디바이스 컨텍스트입니다.
-	dc.TextOut(50, 50, CString(_T("안녕하세요.")));
+	dc.TextOut(50, 50, AfxGetApp()->m_pszExeName);
 }
 
