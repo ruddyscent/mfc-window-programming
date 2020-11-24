@@ -19,6 +19,7 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 // CMainFrame 생성/소멸
@@ -56,6 +57,11 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
 	cs.lpszClass = AfxRegisterWndClass(0);
+	cs.x = AfxGetApp()->GetProfileInt(_T("로컬 애플리케이션 마법사에서 생성된 애플리케이션"), _T("x"), 0);
+	cs.y = AfxGetApp()->GetProfileInt(_T("로컬 애플리케이션 마법사에서 생성된 애플리케이션"), _T("y"), 0);
+	cs.cx = AfxGetApp()->GetProfileInt(_T("로컬 애플리케이션 마법사에서 생성된 애플리케이션"), _T("cx"), 1024);
+	cs.cy = AfxGetApp()->GetProfileInt(_T("로컬 애플리케이션 마법사에서 생성된 애플리케이션"), _T("cy"), 768);
+
 	return TRUE;
 }
 
@@ -92,3 +98,17 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+
+
+void CMainFrame::OnClose()
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rect;
+	GetWindowRect(rect);
+	AfxGetApp()->WriteProfileInt(_T("로컬 애플리케이션 마법사에서 생성된 애플리케이션"), _T("x"), rect.left);
+	AfxGetApp()->WriteProfileInt(_T("로컬 애플리케이션 마법사에서 생성된 애플리케이션"), _T("y"), rect.top);
+	AfxGetApp()->WriteProfileInt(_T("로컬 애플리케이션 마법사에서 생성된 애플리케이션"), _T("cx"), rect.Width());
+	AfxGetApp()->WriteProfileInt(_T("로컬 애플리케이션 마법사에서 생성된 애플리케이션"), _T("cy"), rect.Height());
+
+	CFrameWnd::OnClose();
+}
