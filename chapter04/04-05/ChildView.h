@@ -16,6 +16,8 @@ public:
 
 // 특성입니다.
 public:
+	CArray<CPoint, POINT&> m_paRectangle;
+	CArray<CPoint, POINT&> m_paText;
 
 // 작업입니다.
 public:
