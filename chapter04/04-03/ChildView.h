@@ -16,6 +16,8 @@ public:
 
 // 특성입니다.
 public:
+	CList<CPoint, POINT&> m_plRectangle;
+	CList<CPoint, POINT&> m_plEllipse;
 
 // 작업입니다.
 public:
