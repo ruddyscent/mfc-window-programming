@@ -51,7 +51,15 @@ void CChildView::OnPaint()
 	CPaintDC dc(this); // 그리기를 위한 디바이스 컨텍스트입니다.
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	for (int i = 0; i < m_paRectangle.GetCount(); i++) {
+		dc.Rectangle(m_paRectangle[i].x - 20, m_paRectangle[i].y - 20, 
+			m_paRectangle[i].x + 20, m_paRectangle[i].y + 20);
+	}
 
+	for (int i = 0; i < m_paEllipse.GetCount(); i++) {
+		dc.Ellipse(m_paEllipse[i].x - 20, m_paEllipse[i].y - 20,
+			m_paEllipse[i].x + 20, m_paEllipse[i].y + 20);
+	}
 	// 그리기 메시지에 대해서는 CWnd::OnPaint()를 호출하지 마십시오.
 }
 
@@ -59,12 +67,14 @@ void CChildView::OnPaint()
 void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
-	dc.Rectangle(point.x - 20, point.y - 20, point.x + 20, point.y + 20);
+	m_paRectangle.Add(point);
+	Invalidate();
 }
 
 
 void CChildView::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
-	dc.Ellipse(point.x - 20, point.y - 20, point.x + 20, point.y + 20);
+	m_paEllipse.Add(point);
+	Invalidate();
 }
