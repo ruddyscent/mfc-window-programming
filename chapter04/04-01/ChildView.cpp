@@ -47,7 +47,9 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 void CChildView::OnPaint()
 {
 	CPaintDC dc(this);
-	dc.Rectangle(0, 0, 200, 100);
-	dc.Ellipse(200, 100, 500, 200);
+	CRect rectangle(0, 0, 200, 100);
+	dc.Rectangle(rectangle);
+	CRect ellipse(200, 100, 500, 200);
+	dc.Ellipse(ellipse);
 }
 
