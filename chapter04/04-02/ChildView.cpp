@@ -48,6 +48,9 @@ void CChildView::OnPaint()
 {
 	CPaintDC dc(this);
 	dc.Rectangle(0, 0, 200, 100);
-	dc.Ellipse(200, 100, 500, 200);
+
+	CRect rect;
+	GetClientRect(rect);
+	dc.Ellipse(rect);
 }
 
