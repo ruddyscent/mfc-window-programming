@@ -47,8 +47,19 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 void CChildView::OnPaint()
 {
 	CPaintDC dc(this);
+
+	CBitmap bitmap;
+	bitmap.CreateCompatibleBitmap(&dc, 256, 256);
+	BITMAP bmpinfo;
+	bitmap.GetBitmap(&bmpinfo);
+
+	CDC dcmem;
+	dcmem.CreateCompatibleDC(&dc);
+	dcmem.SelectObject(&bitmap);
 	for (int x = 0; x < 256; x++)
 		for (int y = 0; y < 256; y++)
-			dc.SetPixelV(x, y, RGB(x, y, 0));
+			dcmem.SetPixelV(x, y, RGB(x, y, 0));
+
+	dc.BitBlt(0, 0, bmpinfo.bmWidth, bmpinfo.bmHeight, &dcmem, 0, 0, SRCCOPY);
 }
 
