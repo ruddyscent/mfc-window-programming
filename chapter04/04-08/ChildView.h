@@ -17,6 +17,7 @@ public:
 // 특성입니다.
 public:
 	HENHMETAFILE m_hmf; // 메타파일 핸들
+	CMetaFileDC m_dc;
 
 // 작업입니다.
 public:

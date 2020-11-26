@@ -24,12 +24,15 @@ CChildView::CChildView()
 	dc.Ellipse(1, 1, 9, 9);
 	// 확장 메타파일 핸들을 얻는다.
 	m_hmf = dc.CloseEnhanced();
+
+    m_dc.CreateEnhanced(NULL, _T("Output.emf"), NULL, NULL);
 }
 
 CChildView::~CChildView()
 {
 	// 확장 메타파일을 삭제한다.
 	::DeleteEnhMetaFile(m_hmf);
+	m_dc.CloseEnhanced();
 }
 
 
@@ -71,6 +74,7 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 	CClientDC dc(this);
 	CRect rect(point.x - 20, point.y - 20, point.x + 20, point.y + 20);
 	dc.PlayMetaFile(m_hmf, &rect);
+	m_dc.PlayMetaFile(m_hmf, &rect);
 }
 
 
@@ -79,4 +83,5 @@ void CChildView::OnRButtonDown(UINT nFlags, CPoint point)
 	CClientDC dc(this);
 	CRect rect(point.x - 50, point.y - 20, point.x + 50, point.y + 20);
 	dc.PlayMetaFile(m_hmf, &rect);
+	m_dc.PlayMetaFile(m_hmf, &rect);
 }
