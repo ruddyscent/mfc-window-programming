@@ -20,6 +20,7 @@ public:
 
 // 작업입니다.
 public:
+	CList<CRect, RECT&> m_lrect;
 
 // 재정의입니다.
 protected:
