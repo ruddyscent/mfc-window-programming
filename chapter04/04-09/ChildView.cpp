@@ -25,6 +25,7 @@ CChildView::~CChildView()
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -52,3 +53,16 @@ void CChildView::OnPaint()
 			dc.SetPixelV(x, y, RGB(x, y, 0));
 }
 
+
+
+void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CClientDC dc(this);
+	COLORREF rgb = dc.GetPixel(point);
+	CString str;
+	str.Format(_T("R:%d, G:%d, B:%d"), GetRValue(rgb), GetGValue(rgb), GetBValue(rgb));
+	MessageBox(str, _T("DrawPoints"));
+
+	CWnd::OnLButtonDown(nFlags, point);
+}
