@@ -17,6 +17,8 @@ public:
 // 특성입니다.
 public:
 	HENHMETAFILE m_hmf; // 메타파일 핸들
+	CList<CPoint, POINT&> m_lpntLeft;
+	CList<CPoint, POINT&> m_lpntRight;
 
 // 작업입니다.
 public:

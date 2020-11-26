@@ -61,6 +61,21 @@ void CChildView::OnPaint()
 	CPaintDC dc(this); // 그리기를 위한 디바이스 컨텍스트입니다.
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	POSITION pos;
+
+	pos = m_lpntLeft.GetHeadPosition();
+	while (pos != NULL) {
+		CPoint point = m_lpntLeft.GetNext(pos);
+		CRect rect(point.x - 20, point.y - 20, point.x + 20, point.y + 20);
+		dc.PlayMetaFile(m_hmf, &rect);
+	}
+	
+	pos = m_lpntRight.GetHeadPosition();
+	while (pos != NULL) {
+		CPoint point = m_lpntRight.GetNext(pos);
+		CRect rect(point.x - 50, point.y - 20, point.x + 50, point.y + 20);
+		dc.PlayMetaFile(m_hmf, &rect);
+	}
 
 	// 그리기 메시지에 대해서는 CWnd::OnPaint()를 호출하지 마십시오.
 }
@@ -69,14 +84,14 @@ void CChildView::OnPaint()
 void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
-	CRect rect(point.x - 20, point.y - 20, point.x + 20, point.y + 20);
-	dc.PlayMetaFile(m_hmf, &rect);
+	m_lpntLeft.AddTail(point);
+	Invalidate();
 }
 
 
 void CChildView::OnRButtonDown(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
-	CRect rect(point.x - 50, point.y - 20, point.x + 50, point.y + 20);
-	dc.PlayMetaFile(m_hmf, &rect);
+	m_lpntRight.AddTail(point);
+	Invalidate();
 }
