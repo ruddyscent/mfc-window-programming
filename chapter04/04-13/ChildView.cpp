@@ -51,15 +51,24 @@ void CChildView::OnPaint()
 	CRect rect;
 	GetClientRect(&rect);
 
+	CFont font1, font2, font3;
+	VERIFY(font1.CreatePointFont(120, _T("맑은고딕"))); 
+	VERIFY(font2.CreatePointFont(120, _T("궁서")));
+	VERIFY(font3.CreatePointFont(120, _T("굴림체")));
+
+
 	dc.SetTextColor(RGB(255, 0, 0)); // 글자를 빨간색으로 설정
 	dc.SetBkColor(RGB(255, 255, 0)); // 배경을 노란색으로 설정
+	dc.SelectObject(font1);
 	dc.DrawText(CString("DrawText 함수를 연습합니다. [1]"), &rect, 0);
+	dc.SelectObject(font2);
 	dc.DrawText(CString("DrawText 함수를 연습합니다. [2]"), &rect,
 		DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
 	dc.SetTextAlign(TA_CENTER); // 가운데 정렬 방식으로 변경
 	dc.SetTextColor(RGB(0, 0, 255)); // 글자를 파란색으로 설정
 	dc.SetBkColor(RGB(0, 255, 0)); // 배경을 초록색으로 설정
+	dc.SelectObject(font3);
 	dc.TextOut(rect.right / 2, 3 * rect.bottom / 4,
 		CString("TextOut 함수를 연습합니다."));
 }
