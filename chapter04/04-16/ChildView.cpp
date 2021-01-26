@@ -16,6 +16,7 @@
 
 CChildView::CChildView()
 {
+	iMode = MM_ANISOTROPIC;
 }
 
 CChildView::~CChildView()
@@ -25,6 +26,8 @@ CChildView::~CChildView()
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -49,7 +52,7 @@ void CChildView::OnPaint()
 	CPaintDC dc(this);
 	CRect rect;
 	GetClientRect(&rect);
-	dc.SetMapMode(MM_ANISOTROPIC);
+	dc.SetMapMode(iMode);
 	dc.SetWindowExt(100, 100);
 	dc.SetViewportExt(rect.Width(), rect.Height());
 	dc.RoundRect(0, 0, 100, 100, 50, 50);
@@ -57,3 +60,27 @@ void CChildView::OnPaint()
 		BDR_SUNKENINNER | BDR_RAISEDOUTER, BF_RECT);
 }
 
+
+
+void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	//CWnd::OnLButtonDown(nFlags, point);
+	
+	CClientDC dc(this);
+	iMode = MM_ISOTROPIC;
+	CWnd::Invalidate();
+}
+
+
+void CChildView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	//CWnd::OnRButtonDown(nFlags, point);
+
+	CClientDC dc(this);
+	iMode = MM_ANISOTROPIC;
+	CWnd::Invalidate();
+}

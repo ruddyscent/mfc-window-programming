@@ -16,6 +16,7 @@ public:
 
 // 특성입니다.
 public:
+	int iMode;
 
 // 작업입니다.
 public:
@@ -32,5 +33,8 @@ public:
 protected:
 	afx_msg void OnPaint();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 };
 
