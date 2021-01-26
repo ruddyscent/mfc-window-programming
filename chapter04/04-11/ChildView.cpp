@@ -7,6 +7,10 @@
 #include "DrawLines.h"
 #include "ChildView.h"
 
+#define _USE_MATH_DEFINES
+
+#include "math.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -62,4 +66,13 @@ void CChildView::OnPaint()
 	POINT points[] = { {rect.right / 2, 0}, {rect.right, rect.bottom / 2},
 		{ rect.right / 2, rect.bottom}, {0, rect.bottom / 2}, {rect.right / 2, 0} };
 	dc.Polyline(points, 5);
+
+	CArray<CPoint, CPoint>myArray;
+	for (int i = 0; i < rect.right; i++)
+	{
+		float x = i * 2. / rect.right - 1.;
+		float y = -cos(4.6 * M_PI * x) * rect.bottom / 2 + rect.bottom / 2;
+		myArray.Add(CPoint(i, y));
+	}
+	dc.Polyline(myArray.GetData(), myArray.GetCount());
 }
