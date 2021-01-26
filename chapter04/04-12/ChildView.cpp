@@ -62,4 +62,57 @@ void CChildView::OnPaint()
 	POINT points[] = { {rect.right / 2, 0}, {rect.right, rect.bottom / 2},
 		{ rect.right / 2, rect.bottom}, {0, rect.bottom / 2}, {rect.right / 2, 0} };
 	dc.Polyline(points, 5);
+
+	dc.SetMapMode(MM_LOMETRIC);
+	CSize size = dc.GetWindowExt();
+	CPen thickpen(PS_SOLID, 5, RGB(0, 0, 0));
+	dc.SelectObject(&thickpen);
+	dc.Rectangle(0, 0, size.cx, -100);
+	
+	// cm tick
+	for (int i = 1; i < size.cx / 100; i++) {
+		int x = 100 * i;
+		int y = -60;
+		dc.MoveTo(x, 0);
+		dc.LineTo(x, y);
+	}
+	CPen thinpen(PS_SOLID, 1, RGB(0, 0, 0));
+	dc.SelectObject(&thinpen);
+	
+	// mm tick
+	for (int i = 1; i < size.cx / 10; i++) {
+		int x = 10 * i;
+		int y = -20;
+		if (i % 5 == 0) y = -40;
+		dc.MoveTo(x, 0);
+		dc.LineTo(x, y);
+	}
+
+	// cm label
+	CFont font;
+	VERIFY(font.CreateFont(
+		30,                       // nHeight
+		0,                        // nWidth
+		0,                        // nEscapement
+		0,                        // nOrientation
+		FW_NORMAL,                // nWeight
+		FALSE,                    // bItalic
+		FALSE,                    // bUnderline
+		0,                        // cStrikeOut
+		ANSI_CHARSET,             // nCharSet
+		OUT_DEFAULT_PRECIS,       // nOutPrecision
+		CLIP_DEFAULT_PRECIS,      // nClipPrecision
+		DEFAULT_QUALITY,          // nQuality
+		DEFAULT_PITCH | FF_SWISS, // nPitchAndFamily
+		_T("Arial")));            // lpszFacename
+	dc.SelectObject(font);
+	dc.TextOut(10, -40, _T("0"));
+	dc.SetTextAlign(TA_RIGHT);
+	for (int i = 1; i < size.cx / 100; i++) {
+		int x = 100 * i - 12;
+		int y = -40;
+		CString str;
+		str.Format(_T("%d"), i);
+		dc.TextOut(x, y, str);
+	}
 }
