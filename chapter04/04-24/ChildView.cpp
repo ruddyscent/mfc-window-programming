@@ -54,5 +54,11 @@ void CChildView::OnPaint()
 	rgn1.CombineRgn(&rgn2, &rgn3, RGN_XOR);
 	CBrush brush(RGB(0, 0, 255));
 	dc.FillRgn(&rgn1, &brush);
+
+	CRgn rgn4;
+	rgn4.CreateRectRgn(0, 0, 1, 1); // 임의로 만든 리전
+	rgn4.CombineRgn(&rgn2, &rgn3, RGN_AND);
+	CBrush brush1(RGB(255, 0, 0));
+	dc.FillRgn(&rgn4, &brush1);
 }
 
