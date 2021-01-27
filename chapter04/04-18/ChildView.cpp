@@ -14,7 +14,7 @@
 
 // CChildView
 
-CChildView::CChildView()
+CChildView::CChildView(): circlePenStyle(PS_SOLID)
 {
 }
 
@@ -25,6 +25,8 @@ CChildView::~CChildView()
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -68,14 +70,36 @@ void CChildView::OnPaint()
 
 	dc.SelectObject(&blackpen);
 	dc.Rectangle(50, 200, 150, 300); // 폭과 높이가 100인 직사각형
-	CPen pen1(PS_SOLID, 20, RGB(255, 0, 0)); // 폭 20, 빨간색 PS_SOLID 펜
+	CPen pen1(circlePenStyle, 20, RGB(255, 0, 0)); // 폭 20, 빨간색 PS_SOLID 펜
 	dc.SelectObject(&pen1);
 	dc.Ellipse(50, 200, 150, 300); // 지름이 100인 원
 
 	dc.SelectObject(&blackpen);
 	dc.Rectangle(250, 200, 350, 300); // 폭과 높이가 100인 직사각형
-	CPen pen2(PS_INSIDEFRAME, 20, RGB(255, 0, 0)); // 폭 20, 빨간색 PS_INSIDEFRAME 펜
-	dc.SelectObject(&pen2);
+	CPen pen2(circlePenStyle, 20, RGB(255, 0, 0)); // 폭 20, 빨간색 PS_INSIDEFRAME 펜
+	dc.SelectObject(&pen1);
 	dc.Ellipse(250, 200, 350, 300); // 지름이 100인 원
 }
 
+
+
+void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CWnd::OnLButtonDown(nFlags, point);
+
+	circlePenStyle = PS_INSIDEFRAME;
+	CWnd::Invalidate();
+}
+
+
+void CChildView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CWnd::OnRButtonDown(nFlags, point);
+
+	circlePenStyle = PS_SOLID;
+	CWnd::Invalidate();
+}
