@@ -48,21 +48,11 @@ void CChildView::OnPaint()
 {
 	CPaintDC dc(this);
 
-	// 솔리드 브러시
-	CBrush brush1(RGB(255, 0, 0));
-	dc.SelectObject(&brush1);
-	dc.Rectangle(50, 50, 200, 200);
-
-	// 해치 브러시
-	CBrush brush2(HS_DIAGCROSS, RGB(255, 0, 0));
-	dc.SelectObject(&brush2);
-	dc.Ellipse(250, 50, 400, 200);
-
-	// 패턴 브러시
-	CBitmap bitmap;
-	bitmap.LoadBitmap(IDB_BITMAP1);
-	CBrush brush3(&bitmap);
-	dc.SelectObject(&brush3);
-	dc.RoundRect(450, 50, 600, 200, 50, 50);
+	CRect rect;
+	CWnd::GetClientRect(rect);
+	CBrush brush(HS_DIAGCROSS, RGB(255, 0, 0));
+	dc.SelectObject(brush);
+	CPen pen(PS_NULL, 0, RGB(0, 0, 0));
+	dc.Rectangle(rect);
 }
 
