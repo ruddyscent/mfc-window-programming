@@ -16,6 +16,7 @@
 
 CChildView::CChildView()
 {
+	lButtonDown = false;
 }
 
 CChildView::~CChildView()
@@ -25,6 +26,8 @@ CChildView::~CChildView()
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 
@@ -59,17 +62,37 @@ void CChildView::OnPaint()
 	dcmem.CreateCompatibleDC(&dc);
 	dcmem.SelectObject(&bitmap);
 
-	// 비트맵을 화면에 출력한다.
-	dc.BitBlt(10, 10, bmpinfo.bmWidth, bmpinfo.bmHeight,
-		&dcmem, 0, 0, SRCCOPY);
-	dc.StretchBlt(10, 100, bmpinfo.bmWidth * 4, bmpinfo.bmHeight * 2,
-		&dcmem, 0, 0, bmpinfo.bmWidth, bmpinfo.bmHeight, SRCCOPY);
-
-	// 메모리 DC에 그림을 그린 후 다시 화면에 출력한다.
-	dcmem.Rectangle(5, 5, 15, 15);
-	dc.BitBlt(350, 10, bmpinfo.bmWidth, bmpinfo.bmHeight,
-		&dcmem, 0, 0, SRCCOPY);
-	dc.StretchBlt(350, 100, bmpinfo.bmWidth * 4, bmpinfo.bmHeight * 2,
-		&dcmem, 0, 0, bmpinfo.bmWidth, bmpinfo.bmHeight, SRCCOPY);
+	if (lButtonDown) {
+		CRect rect;
+		GetClientRect(rect);
+		dc.StretchBlt(0, 0, rect.right, rect.bottom,
+			&dcmem, 0, 0, bmpinfo.bmWidth, bmpinfo.bmHeight, SRCCOPY);
+	}
+	else {
+		dc.BitBlt(0, 0, bmpinfo.bmWidth, bmpinfo.bmHeight,
+			&dcmem, 0, 0, SRCCOPY);
+	}
 }
 
+
+
+void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CWnd::OnLButtonDown(nFlags, point);
+
+	lButtonDown = true;
+	Invalidate();
+}
+
+
+void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	CWnd::OnLButtonUp(nFlags, point);
+
+	lButtonDown = false;
+	Invalidate();
+}
