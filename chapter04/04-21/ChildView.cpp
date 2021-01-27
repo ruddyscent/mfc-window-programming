@@ -59,11 +59,15 @@ void CChildView::OnPaint()
 	dc.SelectStockObject(BLACK_PEN);
 	dc.SelectStockObject(NULL_BRUSH);
 	dc.Ellipse(100, 50, 200, 200);
+	dc.SelectStockObject(DEVICE_DEFAULT_FONT);
+	dc.TextOutW(110, 110, _T("타원(Ellipse)"));
 
 	// 경계선이 없고 내부가 밝은 회색으로 채워진 다각형을 그린다.
 	dc.SelectStockObject(NULL_PEN);
 	dc.SelectStockObject(LTGRAY_BRUSH);
 	POINT points[] = { {250, 50}, {450, 150}, {300, 200}, {250, 150} };
 	dc.Polygon(points, 4);
+	dc.SelectStockObject(SYSTEM_FIXED_FONT);
+	dc.TextOutW(270, 120, _T("사각형(Tetragon)"));
 }
 
