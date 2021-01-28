@@ -9,6 +9,7 @@ These codes are my solutions for '쉽게 배우는 MFC 윈도우 프로그래밍
 * Chapter 2: completed
 * Chapter 3: completed
 * Chapter 4: completed
+* Chapter 5: partially completed
 * Chapter 6: partially completed
 * Chapter 7: stuck at problem 20
 * Chapter 8: stuck at problem 9, 15, 17
