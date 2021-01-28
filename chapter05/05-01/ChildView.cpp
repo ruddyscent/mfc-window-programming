@@ -62,6 +62,8 @@ void CChildView::OnPaint()
 
 void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 {
+	// 마우스 캡처를 시작한다(MFC 함수 사용).
+	SetCapture();
 	// 그리기 모드를 시작한다.
 	m_bDrawMode = TRUE;
 	// 좌표를 저장한다.
@@ -99,6 +101,7 @@ void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 	dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
 	// 그리기 모드를 끝낸다.
 	m_bDrawMode = FALSE;
+	ReleaseCapture();
 
 	ellipses.AddTail(CRect(m_x1, m_y1, m_x2, m_y2));
 }
