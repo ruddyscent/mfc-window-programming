@@ -18,6 +18,7 @@ public:
 public:
 	BOOL m_bDrawMode; // 그리기 작업이 진행 중임을 나타낸다.
 	int m_x1, m_y1, m_x2, m_y2; // 타원에 외접하는 직사각형의 좌상단/우하단 좌표
+	COLORREF color;
 
 // 작업입니다.
 public:
@@ -38,5 +39,7 @@ public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 };
 

@@ -17,6 +17,7 @@
 CChildView::CChildView()
 {
 	m_bDrawMode = FALSE;
+	color = RGB(0, 0, 0);
 }
 
 CChildView::~CChildView()
@@ -29,6 +30,8 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
+	ON_WM_RBUTTONDOWN()
+	ON_WM_RBUTTONUP()
 END_MESSAGE_MAP()
 
 
@@ -67,6 +70,8 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 	// 좌표를 저장한다.
 	m_x1 = m_x2 = point.x;
 	m_y1 = m_y2 = point.y;
+
+	color = RGB(255, 0, 0);
 }
 
 
@@ -75,12 +80,13 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 	// 그리기 모드이면 타원을 지우고 그리기를 반복한다.
 	if (m_bDrawMode) {
 		CClientDC dc(this);
+		CPen pen(PS_SOLID, 1, color);
+		dc.SelectObject(pen);
 		dc.SelectStockObject(NULL_BRUSH);
 		// 이전에 그린 타원을 지운다.
-		dc.SetROP2(R2_NOT);
+		dc.SetROP2(R2_MERGEPENNOT);
 		dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
 		// 새로운 타원을 그린다.
-		dc.SetROP2(R2_NOT);
 		m_x2 = point.x;
 		m_y2 = point.y;
 		dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
@@ -91,6 +97,40 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
+	CPen pen(PS_SOLID, 1, color);
+	dc.SelectObject(pen);
+	dc.SelectStockObject(NULL_BRUSH);
+	// 최종적인 타원을 그린다.
+	dc.SetROP2(R2_COPYPEN);
+	m_x2 = point.x;
+	m_y2 = point.y;
+	dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
+	// 그리기 모드를 끝낸다.
+	m_bDrawMode = FALSE;
+	// 마우스 캡처를 해제한다(API 함수 사용).
+	::ReleaseCapture();
+}
+
+
+void CChildView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// 마우스 캡처를 시작한다(MFC 함수 사용).
+	SetCapture();
+	// 그리기 모드를 시작한다.
+	m_bDrawMode = TRUE;
+	// 좌표를 저장한다.
+	m_x1 = m_x2 = point.x;
+	m_y1 = m_y2 = point.y;
+
+	color = RGB(0, 0, 255);
+}
+
+
+void CChildView::OnRButtonUp(UINT nFlags, CPoint point)
+{
+	CClientDC dc(this);
+	CPen pen(PS_SOLID, 1, color);
+	dc.SelectObject(pen);
 	dc.SelectStockObject(NULL_BRUSH);
 	// 최종적인 타원을 그린다.
 	dc.SetROP2(R2_COPYPEN);
