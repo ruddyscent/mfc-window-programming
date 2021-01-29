@@ -91,7 +91,13 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
-	dc.SelectStockObject(NULL_BRUSH);
+	CBrush brush(RGB(0, 0, 255));
+	if (nFlags & MK_CONTROL) {
+		dc.SelectObject(brush);
+	}
+	else {
+		dc.SelectStockObject(NULL_BRUSH);
+	}
 	// 최종적인 타원을 그린다.
 	dc.SetROP2(R2_COPYPEN);
 	m_x2 = point.x;
