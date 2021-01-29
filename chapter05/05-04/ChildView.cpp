@@ -6,6 +6,7 @@
 #include "framework.h"
 #include "DrawCircles.h"
 #include "ChildView.h"
+#include "math.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -92,11 +93,26 @@ void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
 	dc.SelectStockObject(NULL_BRUSH);
+	if (nFlags & MK_SHIFT) {
+		// 이전에 그린 타원을 지운다.
+		dc.SetROP2(R2_NOT);
+		dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
+	}
 	// 최종적인 타원을 그린다.
 	dc.SetROP2(R2_COPYPEN);
 	m_x2 = point.x;
 	m_y2 = point.y;
-	dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
+	if (nFlags & MK_SHIFT) {
+		int width = abs(m_x1 - m_x2);
+		int height = abs(m_y1 - m_y2);
+		if (width > height) {
+			dc.Ellipse(m_x1, m_y1, m_x1 + (m_y2 - m_y1), m_y2);
+		}
+		else
+		{
+			dc.Ellipse(m_x1, m_y1, m_x2, m_y1 + (m_x2 - m_x1));
+		}
+	}
 	// 그리기 모드를 끝낸다.
 	m_bDrawMode = FALSE;
 	// 마우스 캡처를 해제한다(API 함수 사용).
