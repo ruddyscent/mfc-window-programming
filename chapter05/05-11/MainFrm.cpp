@@ -20,6 +20,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
 	ON_WM_NCLBUTTONDOWN()
+	ON_WM_NCLBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 // CMainFrame 생성/소멸
@@ -103,3 +104,14 @@ void CMainFrame::OnNcLButtonDown(UINT nHitTest, CPoint point)
 	else
 		CFrameWnd::OnNcLButtonDown(nHitTest, point);
 }
+
+
+void CMainFrame::OnNcLButtonDblClk(UINT nHitTest, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (nHitTest == HTCAPTION) {
+		CWnd::ShowWindow(SW_MINIMIZE);
+	}
+	else {
+		CFrameWnd::OnNcLButtonDblClk(nHitTest, point);
+	}}
