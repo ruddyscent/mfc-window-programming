@@ -16,16 +16,19 @@
 
 CChildView::CChildView()
 {
+	rect = new CRect(10, 10, 400, 100);
 }
 
 CChildView::~CChildView()
 {
+	delete rect;
 }
 
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
 	ON_WM_SETCURSOR()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 
@@ -49,7 +52,7 @@ void CChildView::OnPaint()
 {
 	CPaintDC dc(this);
 	dc.SelectStockObject(LTGRAY_BRUSH);
-	dc.Ellipse(10, 10, 400, 100);
+	dc.Ellipse(rect);
 }
 
 
@@ -73,4 +76,17 @@ BOOL CChildView::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 	// 클라이언트 영역이 아니면 운영체제가 자동으로 처리한다.
 	return CWnd::OnSetCursor(pWnd, nHitTest, message);
+}
+
+
+void CChildView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	point.x -= 195;
+	point.y -= 45;
+	rect->MoveToXY(point);
+
+	CWnd::OnMouseMove(nFlags, point);
+
+	Invalidate();
 }
