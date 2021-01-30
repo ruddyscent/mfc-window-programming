@@ -20,6 +20,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
 	ON_WM_NCLBUTTONDOWN()
+	ON_WM_NCLBUTTONDBLCLK()
 END_MESSAGE_MAP()
 
 // CMainFrame 생성/소멸
@@ -102,4 +103,17 @@ void CMainFrame::OnNcLButtonDown(UINT nHitTest, CPoint point)
 	// 그 밖의 경우에는 운영체제가 자동으로 처리한다.
 	else
 		CFrameWnd::OnNcLButtonDown(nHitTest, point);
+}
+
+
+void CMainFrame::OnNcLButtonDblClk(UINT nHitTest, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	int returnCode;
+	if (nHitTest == HTCAPTION) {
+		returnCode = MessageBox(_T("윈도우를 최대화하시겠습니까?"), _T("테스트"), MB_OKCANCEL);
+	}
+
+	if (returnCode == IDOK)
+		CFrameWnd::OnNcLButtonDblClk(nHitTest, point);
 }
