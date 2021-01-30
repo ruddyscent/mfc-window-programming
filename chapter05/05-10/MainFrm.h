@@ -42,6 +42,7 @@ protected:
 
 public:
 	afx_msg void OnNcLButtonDown(UINT nHitTest, CPoint point);
+	afx_msg void OnNcMouseMove(UINT nHitTest, CPoint point);
 };
 
 
