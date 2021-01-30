@@ -16,6 +16,9 @@ public:
 
 // 특성입니다.
 public:
+	CRect* m_rect;
+	CPoint* m_offset;
+	BOOL m_move;
 
 // 작업입니다.
 public:
@@ -34,5 +37,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 };
 

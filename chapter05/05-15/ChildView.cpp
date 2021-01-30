@@ -16,16 +16,24 @@
 
 CChildView::CChildView()
 {
+	m_rect = new CRect(10, 10, 400, 100);
+	m_offset = new CPoint(0, 0);
+	m_move = FALSE;
 }
 
 CChildView::~CChildView()
 {
+	delete m_rect;
+	delete m_offset;
 }
 
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
 	ON_WM_SETCURSOR()
+	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 
@@ -49,7 +57,7 @@ void CChildView::OnPaint()
 {
 	CPaintDC dc(this);
 	dc.SelectStockObject(LTGRAY_BRUSH);
-	dc.Ellipse(10, 10, 400, 100);
+	dc.Ellipse(m_rect);
 }
 
 
@@ -61,7 +69,7 @@ BOOL CChildView::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		::GetCursorPos(&point); // 커서 위치(스크린 좌표)를 얻는다.
 		ScreenToClient(&point); // 스크린 좌표를 클라이언트 좌표로 변환한다.
 		CRgn rgn;
-		rgn.CreateEllipticRgn(10, 10, 400, 100); // 타원형 리전을 생성한다.
+		rgn.CreateEllipticRgn(m_rect->left, m_rect->right, m_rect->right, m_rect->bottom); // 타원형 리전을 생성한다.
 		if (rgn.PtInRegion(point)) // 커서가 리전 안쪽에 있는지 확인한다.
 			// 사용자 정의 커서로 변경한다.
 			::SetCursor(AfxGetApp()->LoadCursor(IDC_CURSOR1));
@@ -73,4 +81,43 @@ BOOL CChildView::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 	// 클라이언트 영역이 아니면 운영체제가 자동으로 처리한다.
 	return CWnd::OnSetCursor(pWnd, nHitTest, message);
+}
+
+
+void CChildView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (m_move) {
+		m_rect->MoveToXY(point);
+		m_rect->OffsetRect(*m_offset);
+		Invalidate();
+	}
+	else {
+		CWnd::OnMouseMove(nFlags, point);
+	}
+}
+
+
+void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRgn rgn;
+	rgn.CreateEllipticRgn(m_rect->left, m_rect->top, m_rect->right, m_rect->bottom); // 타원형 리전을 생성한다.
+	if (rgn.PtInRegion(point)) { // 커서가 리전 안쪽에 있는지 확인한다.
+		m_offset->x = m_rect->left - point.x;
+		m_offset->y = m_rect->top - point.y;
+		m_move = TRUE;
+	}
+	else {
+		CWnd::OnLButtonDown(nFlags, point);
+	}
+}
+
+
+void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	m_move = FALSE;
+
+	CWnd::OnLButtonUp(nFlags, point);
 }
