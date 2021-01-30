@@ -64,7 +64,7 @@ BOOL CChildView::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		rgn.CreateEllipticRgn(10, 10, 400, 100); // 타원형 리전을 생성한다.
 		if (rgn.PtInRegion(point)) // 커서가 리전 안쪽에 있는지 확인한다.
 			// 사용자 정의 커서로 변경한다.
-			::SetCursor(AfxGetApp()->LoadCursor(IDC_CURSOR1));
+			::SetCursor(AfxGetApp()->LoadStandardCursor(IDC_HAND));
 		else
 			// 표준 커서 중 하나로 변경한다.
 			::SetCursor(AfxGetApp()->LoadStandardCursor(IDC_CROSS));
