@@ -29,6 +29,7 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
+	ON_WM_KEYUP()
 END_MESSAGE_MAP()
 
 
@@ -53,7 +54,12 @@ void CChildView::OnPaint()
 	CPaintDC dc(this); // 그리기를 위한 디바이스 컨텍스트입니다.
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
-
+	dc.SelectStockObject(NULL_BRUSH);
+	POSITION pos = m_rectList.GetHeadPosition();
+	while (pos != NULL) {
+		CRect rect = m_rectList.GetNext(pos);
+		dc.Ellipse(rect);
+	}
 	// 그리기 메시지에 대해서는 CWnd::OnPaint()를 호출하지 마십시오.
 }
 
@@ -97,8 +103,50 @@ void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 	m_x2 = point.x;
 	m_y2 = point.y;
 	dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
+	m_rectList.AddTail(CRect(m_x1, m_y1, m_x2, m_y2));
 	// 그리기 모드를 끝낸다.
 	m_bDrawMode = FALSE;
 	// 마우스 캡처를 해제한다(API 함수 사용).
 	::ReleaseCapture();
+}
+
+
+void CChildView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (nChar == VK_INSERT) {
+		CRect rectClient, rectNew;
+		GetClientRect(&rectClient);
+		CRgn rgnIntersect, rgnNew, rgnLast;
+
+		if (m_rectList.GetSize() > 0) {
+			rgnLast.CreateEllipticRgnIndirect(m_rectList.GetTail());
+		}
+		else {
+			rgnLast.CreateEllipticRgn(0, 0, 0, 0);
+		}
+
+		do {
+			rectNew.left = RangedRand(0, rectClient.right);
+			rectNew.top = RangedRand(0, rectClient.bottom);
+			rectNew.right = RangedRand(rectNew.left, rectClient.right);
+			rectNew.bottom = RangedRand(rectNew.top, rectClient.bottom);
+			rgnNew.CreateEllipticRgnIndirect(rectNew);
+		} while (rgnIntersect.CombineRgn(&rgnNew, &rgnLast, RGN_AND) == NULLREGION);
+
+		m_rectList.AddTail(rectNew);
+		Invalidate();
+	}
+	else {
+		CWnd::OnKeyUp(nChar, nRepCnt, nFlags);
+	}
+}
+
+int CChildView::RangedRand(int range_min, int range_max)
+{
+	// Generate random numbers in the half-closed interval  
+	// [range_min, range_max). In other words,  
+	// range_min <= random number < range_max  
+	int u = (double)rand() / (RAND_MAX + 1) * (range_max - range_min) + range_min;
+	return u;
 }
