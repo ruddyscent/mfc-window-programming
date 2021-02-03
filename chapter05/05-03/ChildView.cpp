@@ -17,6 +17,7 @@
 CChildView::CChildView()
 {
 	m_bDrawMode = FALSE;
+	m_color = RGB(255, 0, 0);
 }
 
 CChildView::~CChildView()
@@ -29,6 +30,7 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONUP()
+	ON_WM_KEYDOWN()
 END_MESSAGE_MAP()
 
 
@@ -96,9 +98,30 @@ void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 	dc.SetROP2(R2_COPYPEN);
 	m_x2 = point.x;
 	m_y2 = point.y;
+	CPen pen(PS_SOLID, 1, m_color);
+	dc.SelectObject(pen);
 	dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
 	// 그리기 모드를 끝낸다.
 	m_bDrawMode = FALSE;
 	// 마우스 캡처를 해제한다(API 함수 사용).
 	::ReleaseCapture();
+}
+
+
+void CChildView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	switch (nChar) {
+	case 'R':
+		m_color = RGB(255, 0, 0);
+		break;
+	case 'G':
+		m_color = RGB(0, 255, 0);
+		break;
+	case 'B':
+		m_color = RGB(0, 0, 255);
+		break;
+	}
+	Invalidate();
+	CWnd::OnKeyDown(nChar, nRepCnt, nFlags);
 }
