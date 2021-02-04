@@ -118,22 +118,26 @@ void CChildView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 		CRect rectClient, rectNew;
 		GetClientRect(&rectClient);
 		CRgn rgnIntersect, rgnNew, rgnLast;
+		
+		VERIFY(rgnIntersect.CreateEllipticRgnIndirect(rectClient));
 
 		if (m_rectList.GetSize() > 0) {
-			rgnLast.CreateEllipticRgnIndirect(m_rectList.GetTail());
+			VERIFY(rgnLast.CreateEllipticRgnIndirect(m_rectList.GetTail()));
 		}
 		else {
-			rgnLast.CreateEllipticRgn(0, 0, 0, 0);
+			VERIFY(rgnLast.CreateEllipticRgn(0, 0, 0, 0));
 		}
 
+		int nCombineResult;
 		do {
 			rectNew.left = RangedRand(0, rectClient.right);
 			rectNew.top = RangedRand(0, rectClient.bottom);
 			rectNew.right = RangedRand(rectNew.left, rectClient.right);
 			rectNew.bottom = RangedRand(rectNew.top, rectClient.bottom);
-			rgnNew.CreateEllipticRgnIndirect(rectNew);
-		} while (rgnIntersect.CombineRgn(&rgnNew, &rgnLast, RGN_AND) == NULLREGION);
-
+			VERIFY(rgnNew.CreateEllipticRgnIndirect(rectNew));
+			nCombineResult = rgnIntersect.CombineRgn(&rgnNew, &rgnLast, RGN_AND);
+		} while (nCombineResult != ERROR && nCombineResult != NULLREGION);
+		
 		m_rectList.AddTail(rectNew);
 		Invalidate();
 	}
