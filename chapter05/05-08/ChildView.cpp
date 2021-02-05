@@ -44,7 +44,7 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 	cs.style &= ~WS_BORDER;
 	cs.lpszClass = AfxRegisterWndClass(CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS,
 		::LoadCursor(nullptr, IDC_ARROW), reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1), nullptr);
-
+	
 	return TRUE;
 }
 
@@ -53,6 +53,17 @@ void CChildView::OnPaint()
 	CPaintDC dc(this); // 그리기를 위한 디바이스 컨텍스트입니다.
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	
+	POSITION pos = m_pointList.GetHeadPosition();
+	if (pos != NULL) {
+		CPoint point = m_pointList.GetNext(pos);
+		dc.MoveTo(point);
+	}
+	
+	while (pos != NULL) {
+		CPoint point = m_pointList.GetNext(pos);
+		dc.LineTo(point);
+	}
 
 	// 그리기 메시지에 대해서는 CWnd::OnPaint()를 호출하지 마십시오.
 }
@@ -65,8 +76,10 @@ void CChildView::OnLButtonDown(UINT nFlags, CPoint point)
 	// 그리기 모드를 시작한다.
 	m_bDrawMode = TRUE;
 	// 좌표를 저장한다.
-	m_x1 = m_x2 = point.x;
-	m_y1 = m_y2 = point.y;
+	m_pointList.AddTail(point);
+	CClientDC dc(this);
+	dc.MoveTo(point);
+	dc.LineTo(point);
 }
 
 
@@ -75,15 +88,10 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 	// 그리기 모드이면 타원을 지우고 그리기를 반복한다.
 	if (m_bDrawMode) {
 		CClientDC dc(this);
-		dc.SelectStockObject(NULL_BRUSH);
-		// 이전에 그린 타원을 지운다.
-		dc.SetROP2(R2_NOT);
-		dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
-		// 새로운 타원을 그린다.
-		dc.SetROP2(R2_NOT);
-		m_x2 = point.x;
-		m_y2 = point.y;
-		dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
+		CPoint lastPoint = m_pointList.GetTail(); 
+		dc.MoveTo(lastPoint);
+		m_pointList.AddTail(point);
+		dc.LineTo(point);
 	}
 }
 
@@ -91,12 +99,10 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	CClientDC dc(this);
-	dc.SelectStockObject(NULL_BRUSH);
-	// 최종적인 타원을 그린다.
-	dc.SetROP2(R2_COPYPEN);
-	m_x2 = point.x;
-	m_y2 = point.y;
-	dc.Ellipse(m_x1, m_y1, m_x2, m_y2);
+	CPoint lastPoint = m_pointList.GetTail();
+	dc.MoveTo(lastPoint); 
+	m_pointList.AddTail(point);
+	dc.LineTo(point);
 	// 그리기 모드를 끝낸다.
 	m_bDrawMode = FALSE;
 	// 마우스 캡처를 해제한다(API 함수 사용).
