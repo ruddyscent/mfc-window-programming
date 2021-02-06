@@ -65,8 +65,19 @@ void CChildView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	// [Backspace] 키 입력 시 맨 마지막 글자를 삭제한다.
 	if (nChar == _T('\b')) {
-		if (m_str.GetSize() > 0)
+		if (m_str.GetSize() >= 4 &&
+			m_str.GetAt(m_str.GetCount() - 1) == _T(' ') && m_str.GetAt(m_str.GetCount() - 2) == _T(' ') &&
+			m_str.GetAt(m_str.GetCount() - 3) == _T(' ') && m_str.GetAt(m_str.GetCount() - 4) == _T(' ')) {
+				m_str.SetSize(m_str.GetCount() - 4);
+		}
+		else if (m_str.GetSize() > 0)
 			m_str.RemoveAt(m_str.GetSize() - 1);
+	}
+	else if (nChar == _T('\t')) {
+		m_str.Add(_T(' '));
+		m_str.Add(_T(' '));
+		m_str.Add(_T(' '));
+		m_str.Add(_T(' '));
 	}
 	// 그 밖의 경우에는 동적 배열에 글자를 추가한다.
 	else {
