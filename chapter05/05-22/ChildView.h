@@ -19,6 +19,7 @@ public:
 	int m_xPos, m_yPos; // 도형의 현재 위치
 	int m_xMax, m_yMax; // 클라이언트 영역의 크기
 	BOOL m_bFill; // 도형의 내부를 채울지 여부
+	CList<CPoint, POINT&> m_pntList;
 
 // 작업입니다.
 public:

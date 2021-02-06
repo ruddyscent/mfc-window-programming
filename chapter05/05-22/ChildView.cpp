@@ -18,6 +18,7 @@ CChildView::CChildView()
 {
 	m_xPos = m_yPos = 60; // 임의 값으로 초기화
 	m_bFill = FALSE; // 도형 내부를 채우지 않음
+	m_pntList.AddTail(CPoint(60, 60));
 }
 
 CChildView::~CChildView()
@@ -51,6 +52,20 @@ BOOL CChildView::PreCreateWindow(CREATESTRUCT& cs)
 void CChildView::OnPaint()
 {
 	CPaintDC dc(this);
+
+	CPen pen(PS_DOT, 1, RGB(128, 128, 128));
+	dc.SelectObject(pen);
+
+	POSITION pos = m_pntList.GetHeadPosition();
+	CPoint point = m_pntList.GetNext(pos);
+	dc.MoveTo(point);
+
+	while (pos != NULL) {
+		point = m_pntList.GetNext(pos);
+		dc.LineTo(point);
+	}
+
+	dc.SelectStockObject(BLACK_PEN);
 	if (m_bFill == TRUE) dc.SelectStockObject(BLACK_BRUSH);
 	dc.Ellipse(m_xPos - 20, m_yPos - 20, m_xPos + 20, m_yPos + 20);
 }
@@ -80,10 +95,12 @@ void CChildView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case VK_SPACE:
 		m_bFill = !m_bFill;
+		m_pntList.RemoveAll();
 	}
 	// 20 <= m_xPos <= m_xMax-20
 	m_xPos = min(max(20, m_xPos), m_xMax - 20);
 	// 20 <= m_yPos <= m_yMax-20
 	m_yPos = min(max(20, m_yPos), m_yMax - 20);
+	m_pntList.AddTail(CPoint(m_xPos, m_yPos));
 	Invalidate();
 }
