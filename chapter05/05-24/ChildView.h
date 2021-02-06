@@ -17,6 +17,7 @@ public:
 // 특성입니다.
 public:
 	CArray<TCHAR, TCHAR> m_str;
+	CRect m_rect;
 
 // 작업입니다.
 public:
@@ -35,5 +36,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnKillFocus(CWnd* pNewWnd);
+	afx_msg void OnSetFocus(CWnd* pOldWnd);
 };
 
