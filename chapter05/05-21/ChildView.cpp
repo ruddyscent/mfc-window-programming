@@ -65,18 +65,20 @@ void CChildView::OnSize(UINT nType, int cx, int cy)
 
 void CChildView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
+	int disp = GetKeyState(VK_SHIFT) ? -20 : 20;
+
 	switch (nChar) {
 	case VK_LEFT:
-		m_xPos -= 20;
+		m_xPos -= disp;
 		break;
 	case VK_RIGHT:
-		m_xPos += 20;
+		m_xPos += disp;
 		break;
 	case VK_UP:
-		m_yPos -= 20;
+		m_yPos -= disp;
 		break;
 	case VK_DOWN:
-		m_yPos += 20;
+		m_yPos += disp;
 		break;
 	case VK_SPACE:
 		m_bFill = !m_bFill;
