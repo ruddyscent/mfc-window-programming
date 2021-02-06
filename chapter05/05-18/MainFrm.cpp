@@ -19,6 +19,8 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_WM_NCMOUSEMOVE()
+	ON_WM_NCMOUSELEAVE()
 END_MESSAGE_MAP()
 
 // CMainFrame 생성/소멸
@@ -26,6 +28,7 @@ END_MESSAGE_MAP()
 CMainFrame::CMainFrame() noexcept
 {
 	// TODO: 여기에 멤버 초기화 코드를 추가합니다.
+	m_bInNC = FALSE;
 }
 
 CMainFrame::~CMainFrame()
@@ -51,8 +54,8 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if (!CFrameWnd::PreCreateWindow(cs))
 		return FALSE;
-	cs.cx = 200;
-	cs.cy = 100;
+	cs.cx = 1020;
+	cs.cy = 768;
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
 	cs.lpszClass = AfxRegisterWndClass(0);
 	return TRUE;
@@ -91,3 +94,45 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+
+
+void CMainFrame::OnNcMouseMove(UINT nHitTest, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (m_bInNC == FALSE) {
+		TRACKMOUSEEVENT tme;
+		tme.cbSize = sizeof(tme);
+		tme.dwFlags = TME_LEAVE | TME_NONCLIENT;
+		tme.hwndTrack = this->m_hWnd;
+		tme.dwHoverTime = HOVER_DEFAULT;
+		::TrackMouseEvent(&tme);
+
+		CWnd* pMainWnd = AfxGetMainWnd();
+		CRect rect;
+		pMainWnd->GetWindowRect(&rect);
+		rect.right = rect.left + 640;
+		rect.bottom = rect.top + 480;
+		pMainWnd->MoveWindow(&rect);
+
+		m_bInNC = TRUE;
+	}
+	CFrameWnd::OnNcMouseMove(nHitTest, point);
+}
+
+
+void CMainFrame::OnNcMouseLeave()
+{
+	// 이 기능을 사용하려면 Windows 2000 이상이 필요합니다.
+	// _WIN32_WINNT 및 WINVER 기호는 0x0500보다 크거나 같아야 합니다.
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	m_bInNC = FALSE;
+
+	CWnd* pMainWnd = AfxGetMainWnd();
+	CRect rect;
+	pMainWnd->GetWindowRect(&rect);
+	rect.right = rect.left + 1020;
+	rect.bottom = rect.top + 768;
+	pMainWnd->MoveWindow(&rect);
+
+	CFrameWnd::OnNcMouseLeave();
+}

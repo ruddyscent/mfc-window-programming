@@ -59,39 +59,16 @@ void CChildView::OnPaint()
 
 void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 {
-	if (m_bMouseIn == FALSE) {
-		// 마우스 커서 추적을 요청한다.
-		TRACKMOUSEEVENT tme;
-		tme.cbSize = sizeof(tme);
-		tme.dwFlags = TME_LEAVE;
-		tme.hwndTrack = this->m_hWnd;
-		tme.dwHoverTime = HOVER_DEFAULT;
-		::TrackMouseEvent(&tme);
-
-		// 메인 윈도우 크기를 300*150으로 변경한다.
-		CWnd* pMainWnd = AfxGetMainWnd();
-		CRect rect;
-		pMainWnd->GetWindowRect(&rect);
-		rect.right = rect.left + 300;
-		rect.bottom = rect.top + 150;
-		pMainWnd->MoveWindow(&rect);
-
-		// 마우스 커서가 클라이언트 영역에 있음을 기억해둔다.
-		m_bMouseIn = TRUE;
-	}
+	// 메인 윈도우 크기를 300*150으로 변경한다.
+	CWnd* pMainWnd = AfxGetMainWnd();
+	CRect rect;
+	pMainWnd->GetWindowRect(&rect);
+	rect.right = rect.left + 300;
+	rect.bottom = rect.top + 150;
+	pMainWnd->MoveWindow(&rect);
 }
 
 
 void CChildView::OnMouseLeave()
 {
-	// 마우스 커서가 클라이언트 영역 밖에 있음을 기억해둔다.
-	m_bMouseIn = FALSE;
-
-	// 메인 윈도우 크기를 200*100으로 변경한다.
-	CWnd* pMainWnd = AfxGetMainWnd();
-	CRect rect;
-	pMainWnd->GetWindowRect(&rect);
-	rect.right = rect.left + 200;
-	rect.bottom = rect.top + 100;
-	pMainWnd->MoveWindow(&rect);
 }

@@ -15,6 +15,7 @@ protected:
 
 // 특성입니다.
 public:
+	BOOL m_bInNC;
 
 // 작업입니다.
 public:
@@ -40,6 +41,9 @@ protected:
 	afx_msg void OnSetFocus(CWnd *pOldWnd);
 	DECLARE_MESSAGE_MAP()
 
+public:
+	afx_msg void OnNcMouseMove(UINT nHitTest, CPoint point);
+	afx_msg void OnNcMouseLeave();
 };
 
 
