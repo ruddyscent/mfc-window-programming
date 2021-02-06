@@ -16,6 +16,7 @@ public:
 
 // 특성입니다.
 public:
+	CPoint m_caratPos;
 
 // 작업입니다.
 public:
@@ -35,5 +36,6 @@ protected:
 public:
 	afx_msg void OnSetFocus(CWnd* pOldWnd);
 	afx_msg void OnKillFocus(CWnd* pNewWnd);
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 };
 
