@@ -51,9 +51,10 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if (!CFrameWnd::PreCreateWindow(cs))
 		return FALSE;
-	cs.cx = 200;
-	cs.cy = 100;
+	cs.cx = 640;
+	cs.cy = 480;
 	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
+	cs.style &= ~WS_SIZEBOX;
 	cs.lpszClass = AfxRegisterWndClass(0);
 	return TRUE;
 }

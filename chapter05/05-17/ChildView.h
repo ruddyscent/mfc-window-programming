@@ -17,6 +17,7 @@ public:
 // 특성입니다.
 public:
 	BOOL m_bMouseIn;
+	COLORREF m_color;
 
 // 작업입니다.
 public:

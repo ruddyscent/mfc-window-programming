@@ -14,9 +14,8 @@
 
 // CChildView
 
-CChildView::CChildView()
+CChildView::CChildView(): m_bMouseIn(FALSE), m_color(RGB(255, 255, 255))
 {
-	m_bMouseIn = FALSE;
 }
 
 CChildView::~CChildView()
@@ -52,7 +51,9 @@ void CChildView::OnPaint()
 	CPaintDC dc(this); // 그리기를 위한 디바이스 컨텍스트입니다.
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
-
+	CRect rect;
+	GetClientRect(rect);
+	dc.FillSolidRect(rect, m_color);
 	// 그리기 메시지에 대해서는 CWnd::OnPaint()를 호출하지 마십시오.
 }
 
@@ -60,7 +61,6 @@ void CChildView::OnPaint()
 void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	if (m_bMouseIn == FALSE) {
-		// 마우스 커서 추적을 요청한다.
 		TRACKMOUSEEVENT tme;
 		tme.cbSize = sizeof(tme);
 		tme.dwFlags = TME_LEAVE;
@@ -68,16 +68,9 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 		tme.dwHoverTime = HOVER_DEFAULT;
 		::TrackMouseEvent(&tme);
 
-		// 메인 윈도우 크기를 300*150으로 변경한다.
-		CWnd* pMainWnd = AfxGetMainWnd();
-		CRect rect;
-		pMainWnd->GetWindowRect(&rect);
-		rect.right = rect.left + 300;
-		rect.bottom = rect.top + 150;
-		pMainWnd->MoveWindow(&rect);
-
-		// 마우스 커서가 클라이언트 영역에 있음을 기억해둔다.
+		m_color = RGB(255, 255, 0);
 		m_bMouseIn = TRUE;
+		Invalidate();
 	}
 }
 
@@ -85,13 +78,7 @@ void CChildView::OnMouseMove(UINT nFlags, CPoint point)
 void CChildView::OnMouseLeave()
 {
 	// 마우스 커서가 클라이언트 영역 밖에 있음을 기억해둔다.
+	m_color = RGB(255, 255, 255);
 	m_bMouseIn = FALSE;
-
-	// 메인 윈도우 크기를 200*100으로 변경한다.
-	CWnd* pMainWnd = AfxGetMainWnd();
-	CRect rect;
-	pMainWnd->GetWindowRect(&rect);
-	rect.right = rect.left + 200;
-	rect.bottom = rect.top + 100;
-	pMainWnd->MoveWindow(&rect);
+	Invalidate();
 }
