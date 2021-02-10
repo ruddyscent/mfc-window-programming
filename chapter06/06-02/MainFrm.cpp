@@ -64,20 +64,39 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		TRACE0("상태 표시줄을 만들지 못했습니다.\n");
 		return -1;      // 만들지 못했습니다.
 	}
-	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
+	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators) / sizeof(UINT));
 
 	// TODO: 도구 모음을 도킹할 수 없게 하려면 이 세 줄을 삭제하십시오.
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
 
+	/*
+	 * 본문 속 예제(코드를 이용한 메뉴 생성 #1)
+	 */
+	CMenu menuMain; // 메뉴 객체 생성
+	menuMain.CreateMenu(); // 최상위 메뉴 생성
+
+	CMenu menuPopup; // 메뉴 객체 생성
+	menuPopup.CreatePopupMenu(); // 팝업 메뉴 생성
+
+	// 팝업 메뉴에 메뉴 항목 세 개 추가
+	menuPopup.AppendMenu(MF_STRING, 201, _T("빨간색(&R)"));
+	menuPopup.AppendMenu(MF_STRING, 202, _T("초록색(&G)"));
+	menuPopup.AppendMenu(MF_STRING, 203, _T("파란색(&B)"));
+
+	// 최상위 메뉴에 팝업 메뉴 추가
+	menuMain.AppendMenu(MF_POPUP, (UINT)menuPopup.Detach(), _T("색상(&C)"));
+
+	SetMenu(&menuMain); // 메뉴를 윈도우에 붙임
+	menuMain.Detach(); // 메뉴 객체와 메뉴를 분리
 
 	return 0;
 }
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
-	if( !CFrameWnd::PreCreateWindow(cs) )
+	if (!CFrameWnd::PreCreateWindow(cs))
 		return FALSE;
 	// TODO: CREATESTRUCT cs를 수정하여 여기에서
 	//  Window 클래스 또는 스타일을 수정합니다.
