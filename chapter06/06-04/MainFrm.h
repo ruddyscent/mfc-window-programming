@@ -5,6 +5,8 @@
 #pragma once
 #include "ChildView.h"
 
+#define WM_TRAY_NOTIFICATION	WM_APP + 1
+
 class CMainFrame : public CFrameWnd
 {
 	
@@ -43,6 +45,10 @@ protected:
 	afx_msg void OnSetFocus(CWnd *pOldWnd);
 	DECLARE_MESSAGE_MAP()
 
+public:
+	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
+	afx_msg void OnDestroy();
+	LRESULT OnTrayNotification(WPARAM wParam, LPARAM lParam);
 };
 
 

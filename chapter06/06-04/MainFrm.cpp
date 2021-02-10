@@ -19,6 +19,9 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_WM_SYSCOMMAND()
+	ON_WM_DESTROY()
+	ON_MESSAGE(WM_TRAY_NOTIFICATION, OnTrayNotification)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -93,6 +96,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CMenu* pTopLevel = GetMenu(); // 최상위 메뉴의 포인터를 얻는다.
 	pTopLevel->AppendMenu(MF_POPUP, (UINT)Popup2.Detach(), _T("테스트(&T)"));
 
+	CMenu* pSysMenu = GetSystemMenu(FALSE);
+	pSysMenu->InsertMenu(6, MF_BYPOSITION | MF_STRING, 16, _T("[트레이 아이콘]"));
 	return 0;
 }
 
@@ -141,3 +146,51 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+
+void CMainFrame::OnSysCommand(UINT nID, LPARAM lParam)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if ((nID & 0xFFF0) == 16) {
+		NOTIFYICONDATA nid;
+		::ZeroMemory(&nid, sizeof(nid));
+		nid.cbSize = sizeof(nid);
+		nid.uID = 0;
+		nid.hWnd = GetSafeHwnd();
+		nid.uFlags = NIF_ICON | NIF_MESSAGE;
+		nid.hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+		lstrcpy(nid.szTip, _T("내 트레이"));
+		nid.uCallbackMessage = WM_TRAY_NOTIFICATION;
+		BOOL bRet = ::Shell_NotifyIcon(NIM_ADD, &nid);
+		// ShowWindow(SW_MINIMIZE);
+		ShowWindow(SW_HIDE);
+		return;
+	}
+	CFrameWnd::OnSysCommand(nID, lParam);
+}
+
+
+void CMainFrame::OnDestroy()
+{
+	CFrameWnd::OnDestroy();
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	NOTIFYICONDATA nid;
+	::ZeroMemory(&nid, sizeof(nid));
+	nid.uID = 0;
+	nid.hWnd = GetSafeHwnd();
+	BOOL bRet = ::Shell_NotifyIcon(NIM_DELETE, &nid);
+}
+
+LRESULT CMainFrame::OnTrayNotification(WPARAM wParam, LPARAM lParam) {
+	switch (lParam) {
+	case WM_LBUTTONDOWN:
+		ShowWindow(SW_RESTORE);
+		NOTIFYICONDATA nid;
+		::ZeroMemory(&nid, sizeof(nid));
+		nid.uID = 0;
+		nid.hWnd = GetSafeHwnd();
+		BOOL bRet = ::Shell_NotifyIcon(NIM_DELETE, &nid);
+		break;
+	}
+	return 1;
+}
