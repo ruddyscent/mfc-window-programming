@@ -91,7 +91,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// (3) '테스트' 메뉴를 최상위 메뉴에 붙인다.
 	CMenu* pTopLevel = GetMenu(); // 최상위 메뉴의 포인터를 얻는다.
-	pTopLevel->AppendMenu(MF_POPUP, (UINT)Popup2.Detach(), _T("테스트(&T)"));
+	CMenu* pSubLevel = pTopLevel->GetSubMenu(0);
+	pSubLevel->InsertMenu(0, MF_BYPOSITION | MF_POPUP, (UINT)Popup2.Detach(), _T("테스트(&T)"));
+	pSubLevel->InsertMenu(1, MF_BYPOSITION | MF_SEPARATOR);
 
 	return 0;
 }
