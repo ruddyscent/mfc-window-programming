@@ -183,7 +183,7 @@ void CMainFrame::OnDestroy()
 
 LRESULT CMainFrame::OnTrayNotification(WPARAM wParam, LPARAM lParam) {
 	switch (lParam) {
-	case WM_LBUTTONDOWN:
+	case WM_LBUTTONDBLCLK:
 		ShowWindow(SW_RESTORE);
 		NOTIFYICONDATA nid;
 		::ZeroMemory(&nid, sizeof(nid));
