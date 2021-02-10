@@ -16,6 +16,7 @@ public:
 
 // 특성입니다.
 public:
+	CRect m_rect;
 
 // 작업입니다.
 public:
@@ -32,5 +33,7 @@ public:
 protected:
 	afx_msg void OnPaint();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 };
 
