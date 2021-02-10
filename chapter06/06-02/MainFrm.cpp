@@ -19,6 +19,7 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_WM_CONTEXTMENU()
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -139,3 +140,12 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+
+void CMainFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	CMenu* pTopLevel = GetMenu();
+	CMenu* pMenu = pTopLevel->GetSubMenu(0);
+	pMenu->TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON,
+		point.x, point.y, AfxGetMainWnd());
+}
