@@ -19,6 +19,7 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_WM_SYSCOMMAND()
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -71,7 +72,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
 
-
+	CMenu menu;
+	menu.LoadMenu(IDR_MAINFRAME);
+	CMenu* pPopup = menu.GetSubMenu(4);
+	CMenu* pSysMenu = GetSystemMenu(FALSE);
+	pSysMenu->AppendMenu(MF_POPUP, (UINT)pPopup->Detach(), _T("색상(&C)"));
 	return 0;
 }
 
@@ -120,3 +125,16 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+
+
+void CMainFrame::OnSysCommand(UINT nID, LPARAM lParam)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	switch (nID) {
+	case ID_COLOR_RED:
+	case ID_COLOR_GREEN:
+	case ID_COLOR_BLUE:
+		m_wndView.OnCmdMsg(nID, 0, NULL, NULL);
+	}
+	CFrameWnd::OnSysCommand(nID, lParam);
+}
