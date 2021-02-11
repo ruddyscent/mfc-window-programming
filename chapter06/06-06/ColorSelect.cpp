@@ -19,6 +19,9 @@
 
 BEGIN_MESSAGE_MAP(CColorSelectApp, CWinApp)
 	ON_COMMAND(ID_APP_ABOUT, &CColorSelectApp::OnAppAbout)
+	ON_COMMAND(ID_COLOR_BLUE, &CColorSelectApp::OnColorBlue)
+	ON_COMMAND(ID_COLOR_GREEN, &CColorSelectApp::OnColorGreen)
+	ON_COMMAND(ID_COLOR_RED, &CColorSelectApp::OnColorRed)
 END_MESSAGE_MAP()
 
 
@@ -134,3 +137,30 @@ void CColorSelectApp::OnAppAbout()
 
 
 
+
+
+void CColorSelectApp::OnColorBlue()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CChildView& view = ((CMainFrame*)m_pMainWnd)->m_wndView;
+	view.m_color = RGB(0, 0, 255);
+	view.Invalidate();
+}
+
+
+void CColorSelectApp::OnColorGreen()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CChildView& view = ((CMainFrame*)m_pMainWnd)->m_wndView;
+	view.m_color = RGB(0, 255, 0);
+	view.Invalidate();
+}
+
+
+void CColorSelectApp::OnColorRed()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CChildView& view = ((CMainFrame*)m_pMainWnd)->m_wndView;
+	view.m_color = RGB(255, 0, 0);
+	view.Invalidate();
+}

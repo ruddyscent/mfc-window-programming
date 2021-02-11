@@ -30,6 +30,9 @@ public:
 public:
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+	afx_msg void OnColorBlue();
+	afx_msg void OnColorGreen();
+	afx_msg void OnColorRed();
 };
 
 extern CColorSelectApp theApp;
