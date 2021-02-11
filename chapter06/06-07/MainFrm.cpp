@@ -19,6 +19,9 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_COMMAND(ID_COLOR_BLUE, &CMainFrame::OnColorBlue)
+	ON_COMMAND(ID_COLOR_GREEN, &CMainFrame::OnColorGreen)
+	ON_COMMAND(ID_COLOR_RED, &CMainFrame::OnColorRed)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -120,3 +123,27 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+
+
+void CMainFrame::OnColorBlue()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	m_wndView.m_color = RGB(0, 0, 255);
+	Invalidate();
+}
+
+
+void CMainFrame::OnColorGreen()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	m_wndView.m_color = RGB(0, 255, 0);
+	Invalidate();
+}
+
+
+void CMainFrame::OnColorRed()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	m_wndView.m_color = RGB(255, 0, 0);
+	Invalidate();
+}

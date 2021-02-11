@@ -43,6 +43,10 @@ protected:
 	afx_msg void OnSetFocus(CWnd *pOldWnd);
 	DECLARE_MESSAGE_MAP()
 
+public:
+	afx_msg void OnColorBlue();
+	afx_msg void OnColorGreen();
+	afx_msg void OnColorRed();
 };
 
 

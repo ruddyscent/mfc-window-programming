@@ -26,9 +26,9 @@ CChildView::~CChildView()
 
 BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_WM_PAINT()
-	ON_COMMAND(ID_COLOR_RED, &CChildView::OnColorRed)
-	ON_COMMAND(ID_COLOR_GREEN, &CChildView::OnColorGreen)
-	ON_COMMAND(ID_COLOR_BLUE, &CChildView::OnColorBlue)
+//	ON_COMMAND(ID_COLOR_RED, &CChildView::OnColorRed)
+//	ON_COMMAND(ID_COLOR_GREEN, &CChildView::OnColorGreen)
+//	ON_COMMAND(ID_COLOR_BLUE, &CChildView::OnColorBlue)
 END_MESSAGE_MAP()
 
 
@@ -64,22 +64,22 @@ void CChildView::OnPaint()
 }
 
 
-void CChildView::OnColorRed()
-{
-	m_color = RGB(255, 0, 0);
-	Invalidate();
-}
+//void CChildView::OnColorRed()
+//{
+//	m_color = RGB(255, 0, 0);
+//	Invalidate();
+//}
 
 
-void CChildView::OnColorGreen()
-{
-	m_color = RGB(0, 255, 0);
-	Invalidate();
-}
+//void CChildView::OnColorGreen()
+//{
+//	m_color = RGB(0, 255, 0);
+//	Invalidate();
+//}
 
 
-void CChildView::OnColorBlue()
-{
-	m_color = RGB(0, 0, 255);
-	Invalidate();
-}
+//void CChildView::OnColorBlue()
+//{
+//	m_color = RGB(0, 0, 255);
+//	Invalidate();
+//}
