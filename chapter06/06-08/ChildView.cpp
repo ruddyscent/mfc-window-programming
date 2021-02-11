@@ -90,17 +90,20 @@ void CChildView::OnColorBlue()
 
 void CChildView::OnUpdateColorRed(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck(m_color == RGB(255, 0, 0));
+	pCmdUI->SetRadio(m_color == RGB(255, 0, 0));
+	pCmdUI->Enable(m_color != RGB(255, 0, 0));
 }
 
 
 void CChildView::OnUpdateColorGreen(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck(m_color == RGB(0, 255, 0));
+	pCmdUI->SetRadio(m_color == RGB(0, 255, 0));
+	pCmdUI->Enable(m_color != RGB(0, 255, 0));
 }
 
 
 void CChildView::OnUpdateColorBlue(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck(m_color == RGB(0, 0, 255));
+	pCmdUI->SetRadio(m_color == RGB(0, 0, 255));
+	pCmdUI->Enable(m_color != RGB(0, 0, 255));
 }
