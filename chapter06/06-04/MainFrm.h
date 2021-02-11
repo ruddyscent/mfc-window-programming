@@ -48,7 +48,7 @@ protected:
 public:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnDestroy();
-	LRESULT OnTrayNotification(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnTrayNotification(WPARAM wParam, LPARAM lParam);
 };
 
 
