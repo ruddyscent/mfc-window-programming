@@ -19,6 +19,7 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_COMMAND(ID_POWER, &CMainFrame::OnPower)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -120,3 +121,21 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+
+void CMainFrame::OnPower()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CMenu* pMainMenu = GetMenu();
+	
+	CString str;
+	pMainMenu->GetMenuString(5, str, MF_BYPOSITION);
+	if (str == _T("전원 끄기")) {
+		m_wndView.m_bPower = FALSE;
+		pMainMenu->ModifyMenu(5, MF_BYPOSITION, ID_POWER, _T("전원 켜기"));
+	}
+	else {
+		m_wndView.m_bPower = TRUE;
+		pMainMenu->ModifyMenu(5, MF_BYPOSITION, ID_POWER, _T("전원 끄기"));
+	}
+	Invalidate();
+}

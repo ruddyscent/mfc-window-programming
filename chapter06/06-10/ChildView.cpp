@@ -17,6 +17,7 @@
 CChildView::CChildView()
 {
 	m_color = RGB(255, 0, 0);
+	m_bPower = TRUE;
 }
 
 CChildView::~CChildView()
@@ -29,6 +30,7 @@ BEGIN_MESSAGE_MAP(CChildView, CWnd)
 	ON_COMMAND(ID_COLOR_RED, &CChildView::OnColorRed)
 	ON_COMMAND(ID_COLOR_GREEN, &CChildView::OnColorGreen)
 	ON_COMMAND(ID_COLOR_BLUE, &CChildView::OnColorBlue)
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -82,4 +84,16 @@ void CChildView::OnColorBlue()
 {
 	m_color = RGB(0, 0, 255);
 	Invalidate();
+}
+
+
+
+BOOL CChildView::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rect;
+	GetClientRect(rect);
+	pDC->FillSolidRect(rect, m_bPower ? RGB(255, 255, 255) : RGB(125, 125, 125));
+
+	return CWnd::OnEraseBkgnd(pDC);
 }

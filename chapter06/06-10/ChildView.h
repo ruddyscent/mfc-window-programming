@@ -17,6 +17,7 @@ public:
 // 특성입니다.
 public:
 	COLORREF m_color;
+	BOOL m_bPower;
 
 // 작업입니다.
 public:
@@ -37,5 +38,6 @@ public:
 	afx_msg void OnColorRed();
 	afx_msg void OnColorGreen();
 	afx_msg void OnColorBlue();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
 
