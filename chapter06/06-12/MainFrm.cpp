@@ -80,6 +80,16 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// ID가 16인 메뉴 항목을 추가한다.
 	pSysMenu->AppendMenu(MF_STRING, 16, _T("이 프로그램은..."));
 
+	pSysMenu->DeleteMenu(0, MF_BYPOSITION);
+	pSysMenu->DeleteMenu(0, MF_BYPOSITION);
+	pSysMenu->DeleteMenu(0, MF_BYPOSITION);
+	pSysMenu->DeleteMenu(0, MF_BYPOSITION);
+	pSysMenu->DeleteMenu(0, MF_BYPOSITION);
+	pSysMenu->DeleteMenu(0, MF_BYPOSITION);
+	pSysMenu->DeleteMenu(1, MF_BYPOSITION);
+	pSysMenu->DeleteMenu(1, MF_BYPOSITION);
+	pSysMenu->EnableMenuItem(SC_CLOSE, MF_ENABLED);
+
 	return 0;
 }
 
