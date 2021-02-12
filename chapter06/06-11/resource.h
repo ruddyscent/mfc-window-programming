@@ -8,7 +8,6 @@
 #define ID_COLOR_RED                    32771
 #define ID_COLOR_GREEN                  32772
 #define ID_COLOR_BLUE                   32773
-#define ID_ACCELERATOR32774             32774
 #define ID_WINDOW_MAXIMIZE              32774
 
 // Next default values for new objects
