@@ -19,6 +19,7 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_SETFOCUS()
+	ON_COMMAND(ID_WINDOW_MAXIMIZE, &CMainFrame::OnWindowMaximize)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -120,3 +121,10 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+
+
+void CMainFrame::OnWindowMaximize()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	ShowWindow(SW_MAXIMIZE);
+}
