@@ -116,6 +116,7 @@ void CFileIOTestView::OnLButtonDown(UINT nFlags, CPoint point)
 	m_memFile.SeekToBegin(); 
 	m_memFile.Write(&point, sizeof(point));
 	Invalidate();
+
 	CView::OnLButtonDown(nFlags, point);
 }
 
