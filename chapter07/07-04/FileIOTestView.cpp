@@ -37,7 +37,7 @@ CFileIOTestView::CFileIOTestView() noexcept
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 	CFileException e;
-	if (!m_file.Open(_T("test1.txt", CFile::typeUnicode | CFile::readOnly), CFile::modeRead, &e)) {
+	if (!m_file.Open(_T("test1.txt"), CFile::typeUnicode | CFile::modeRead, &e)) {
 		e.ReportError();
 			return;
 	}
