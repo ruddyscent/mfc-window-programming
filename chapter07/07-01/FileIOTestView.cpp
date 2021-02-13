@@ -113,12 +113,13 @@ void CFileIOTestView::OnLButtonDown(UINT nFlags, CPoint point)
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	CreateDirectory(_T("C:\\Temp"), NULL);
 
-	CFile file;
-	CFileException e;
-	if (!file.Open(_T("C:\\Temp\\MyFile.tmp"), CFile::modeCreate, &e)) {
-		e.ReportError();
-		return;
+	try {
+		CFile file(_T("C:\\Temp\\MyFile.tmp"), CFile::modeCreate);
 	}
-
+	catch (CFileException* e) {
+		e->ReportError();
+		e->Delete();
+	}
+	
 	CView::OnLButtonDown(nFlags, point);
 }
