@@ -116,7 +116,7 @@ void CFileIOTestView::OnPaint()
 	CFileIOTestDoc* doc = GetDocument();
 	CString out;
 	if (doc->m_bIsBitmap) {
-		out.Format(_T("비트맵 파일입니다\n파일 크기: %ull(바이트)"), doc->m_ullSize);
+		out.Format(_T("비트맵 파일입니다\n파일 크기: %u (바이트)"), doc->m_ullSize);
 	} 
 	else {
 		out.Format(_T("파일이 선택되지 않았습니다"));
