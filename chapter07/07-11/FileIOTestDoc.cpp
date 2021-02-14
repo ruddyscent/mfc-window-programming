@@ -66,7 +66,7 @@ void CFileIOTestDoc::Serialize(CArchive& ar)
 		CFile* cfile = ar.GetFile();
 		cfile->SeekToEnd();
 		cfile->Seek(-2, CFile::current);
-		char buffer[2];
+		CHAR buffer[2];
 		cfile->Read(buffer, 2);
 		if (buffer[0] == '\r' && buffer[1] == '\n') {
 			AfxMessageBox(_T("윈도우 텍스트 파일입니다."));
