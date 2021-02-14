@@ -63,10 +63,10 @@ void CFileIOTestDoc::Serialize(CArchive& ar)
 	else
 	{
 		// TODO: 여기에 로딩 코드를 추가합니다.
-		CFile* cfile = ar.GetFile();
-		CString strFilePath = cfile->GetFilePath();
-		
-		m_image.Load(strFilePath);
+		CFile* pFile = ar.GetFile();
+		if (pFile != NULL) {
+			m_image.Load(pFile->GetFilePath());
+		}
 	}
 }
 
