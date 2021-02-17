@@ -57,15 +57,12 @@ void CFileIOTestDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: 여기에 저장 코드를 추가합니다.
-		POSITION pos = m_pointList.GetHeadPosition();
-		while (pos != NULL) {
-			CPoint point = m_pointList.GetNext(pos);
-			ar << point;
-		}
+		m_pointList.Serialize(ar);
 	}
 	else
 	{
 		// TODO: 여기에 로딩 코드를 추가합니다.
+		m_pointList.Serialize(ar);
 	}
 }
 
