@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(CInputSaveLoadView, CView)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_CHAR()
+	ON_COMMAND(ID_CAPTURE, &CInputSaveLoadView::OnCapture)
 END_MESSAGE_MAP()
 
 // CInputSaveLoadView 생성/소멸
@@ -135,4 +136,22 @@ void CInputSaveLoadView::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 	// 뷰의 화면을 갱신한다.
 	Invalidate();
+}
+
+
+void CInputSaveLoadView::OnCapture()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CPaintDC dc(this);
+	
+	CRect rect;
+	GetClientRect(rect);
+
+	CImage image;
+	image.Create(1024, 1024, 32);
+	CDC& dcmem = *CDC::FromHandle(image.GetDC());
+	
+	dcmem.StretchBlt(0, 0, 1024, 1024, &dc, 0, 0, rect.Width(), rect.Height(), SRCCOPY);
+	image.Save(_T("화면갈무리.bmp"));
+	image.ReleaseDC();
 }
