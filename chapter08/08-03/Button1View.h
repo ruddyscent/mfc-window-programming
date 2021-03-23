@@ -49,7 +49,7 @@ protected:
 public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	void OnButtonClicked();
-	void OnRadioButtonClicked();
+	void OnRadioButtonClicked(UINT nID);
 };
 
 #ifndef _DEBUG  // Button1View.cpp의 디버그 버전

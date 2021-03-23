@@ -29,7 +29,7 @@ BEGIN_MESSAGE_MAP(CButton1View, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
 	ON_WM_CREATE()
 	ON_BN_CLICKED(101, OnButtonClicked)
-	ON_BN_CLICKED(104, OnRadioButtonClicked)
+	ON_COMMAND_RANGE(104, 105, OnRadioButtonClicked)
 END_MESSAGE_MAP()
 
 // CButton1View 생성/소멸
@@ -122,7 +122,7 @@ int CButton1View::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		CRect(20, 100, 160, 130), this, 103);
 	m_radio1.Create(_T("라디오 버튼 1"), WS_CHILD | WS_VISIBLE | WS_GROUP | BS_RADIOBUTTON,
 		CRect(20, 170, 160, 200), this, 104);
-	m_radio2.Create(_T("라디오 버튼 2"), WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+	m_radio2.Create(_T("라디오 버튼 2"), WS_CHILD | WS_VISIBLE | BS_RADIOBUTTON,
 		CRect(20, 210, 160, 240), this, 105);
 	m_groupbox.Create(_T("그룹 박스"), WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
 		CRect(10, 140, 170, 250), this, 106);
@@ -150,15 +150,16 @@ void CButton1View::OnButtonClicked()
 }
 
 
-void CButton1View::OnRadioButtonClicked()
+void CButton1View::OnRadioButtonClicked(UINT nID)
 {
-	// TODO: 여기에 구현 코드 추가.
-	if (m_radio1.GetCheck() == BST_CHECKED) {
-		m_radio1.SetCheck(BST_UNCHECKED);
-		m_radio2.SetCheck(BST_CHECKED);
-	}
-	else {
+	switch (nID) {
+	case 104:
 		m_radio1.SetCheck(BST_CHECKED);
 		m_radio2.SetCheck(BST_UNCHECKED);
+		break;
+	case 105:
+		m_radio1.SetCheck(BST_UNCHECKED);
+		m_radio2.SetCheck(BST_CHECKED);
+		break;
 	}
 }
