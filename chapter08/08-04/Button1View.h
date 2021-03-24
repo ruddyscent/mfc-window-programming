@@ -19,9 +19,9 @@ public:
 	CButton m_3state;
 	CButton m_radio1;
 	CButton m_radio2;
-	CButton m_radio3;
-	CButton m_radio4;
 	CButton m_groupbox;
+	CButton m_radioA;
+	CButton m_radioB;
 
 // 작업입니다.
 public:

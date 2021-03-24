@@ -123,17 +123,18 @@ int CButton1View::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		CRect(20, 170, 160, 200), this, 104);
 	m_radio2.Create(_T("라디오 버튼 2"), WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
 		CRect(20, 210, 160, 240), this, 105);
-	m_radio3.Create(_T("라디오 버튼 A"), WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON,
-		CRect(160, 170, 300, 200), this, 107);
-	m_radio4.Create(_T("라디오 버튼 B"), WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
-		CRect(160, 210, 300, 240), this, 108);
 	m_groupbox.Create(_T("그룹 박스"), WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
-		CRect(10, 140, 300, 250), this, 106);
+		CRect(10, 140, 320, 250), this, 106);
+	m_radioA.Create(_T("라디오 버튼 A"), WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON,
+		CRect(170, 170, 310, 200), this, 107);
+	m_radioB.Create(_T("라디오 버튼 B"), WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
+		CRect(170, 210, 310, 240), this, 108);
 
 	// 버튼 컨트롤을 초기화한다.
 	m_checkbox.SetCheck(1);
 	m_3state.SetCheck(2);
 	m_radio2.SetCheck(1);
+	m_radioA.SetCheck(1);
 
 	return 0;
 }
