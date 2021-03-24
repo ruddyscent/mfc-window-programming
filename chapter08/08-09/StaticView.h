@@ -19,6 +19,7 @@ public:
 // 특성입니다.
 public:
 	CStaticDoc* GetDocument() const;
+	BOOL meta_mode;
 
 // 작업입니다.
 public:
@@ -50,6 +51,7 @@ protected:
 public:
 	CStatic m_metafile;
 	afx_msg void OnStnClickedMetafile();
+	CStatic m_bitmap;
 };
 
 #ifndef _DEBUG  // StaticView.cpp의 디버그 버전

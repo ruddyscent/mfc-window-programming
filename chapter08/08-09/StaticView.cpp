@@ -47,6 +47,7 @@ void CStaticView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_METAFILE, m_metafile);
+	DDX_Control(pDX, IDC_BITMAP, m_bitmap);
 }
 
 BOOL CStaticView::PreCreateWindow(CREATESTRUCT& cs)
@@ -63,6 +64,7 @@ void CStaticView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 	m_metafile.SetEnhMetaFile(::GetEnhMetaFile(_T("test.emf")));
+	meta_mode = true;
 }
 
 
@@ -116,5 +118,25 @@ CStaticDoc* CStaticView::GetDocument() const // 디버그되지 않은 버전은
 
 void CStaticView::OnStnClickedMetafile()
 {
-	MessageBox(_T("확장 메타파일 그림 클릭!"));
+	//DWORD dwStyles = m_metafile.GetStyle();
+	// if (dwStyles & SS_ENHMETAFILE) {
+	if (meta_mode) {
+		m_metafile.ModifyStyle(SS_ENHMETAFILE, SS_BITMAP);
+		CBitmap bitmap;
+		bitmap.LoadBitmap(IDR_MAINFRAME);
+		m_metafile.SetBitmap(bitmap);
+		meta_mode = false;
+
+		m_bitmap.ModifyStyle(SS_BITMAP, SS_ENHMETAFILE);
+		m_bitmap.SetEnhMetaFile(::GetEnhMetaFile(_T("test.emf")));
+	} else {
+		m_metafile.ModifyStyle(SS_BITMAP, SS_ENHMETAFILE);
+		m_metafile.SetEnhMetaFile(::GetEnhMetaFile(_T("test.emf")));
+		meta_mode = true;
+
+		m_bitmap.ModifyStyle(SS_ENHMETAFILE, SS_BITMAP);
+		CBitmap bitmap;
+		bitmap.LoadBitmap(IDR_MAINFRAME);
+		m_bitmap.SetBitmap(bitmap);
+	}
 }
