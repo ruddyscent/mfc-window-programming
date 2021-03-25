@@ -66,7 +66,8 @@ void CEditCtrlView::OnInitialUpdate()
 	GetParentFrame()->RecalcLayout();
 	ResizeParentToFit();
 	m_edit.SetLimitText(20);
-	m_edit.ModifyStyle(0, ES_MULTILINE | ES_AUTOVSCROLL);
+	//m_edit.ModifyStyle(0, ES_MULTILINE | ES_AUTOVSCROLL);
+
 }
 
 
